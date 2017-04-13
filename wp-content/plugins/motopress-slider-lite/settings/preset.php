@@ -6,29 +6,18 @@ $fonts = array();
 if (!(defined('DOING_AJAX') and DOING_AJAX) and is_admin()) {
 	$fonts = wp_cache_get('mpsl_gfonts');
 	if (false === $fonts) {
-		global $mpsl_settings;
-		$googleFonts = file_get_contents($mpsl_settings['plugin_dir_path'] . 'vendor/googlefonts/webfonts.json');
-		$googleFonts = $googleFonts ? json_decode($googleFonts, true) : array();
-
-		$fonts[''] = '-- ' . __('SELECT', 'motopress-slider-lite') . ' --';
-
-		if (!is_null($googleFonts) && isset($googleFonts['items'])) {
-			foreach ($googleFonts['items'] as $gFont) {
-				foreach ($gFont['variants'] as $key => $variant) {
-					if (strpos($variant, 'italic') !== false) {
-						unset($gFont['variants'][$key]);
-						continue;
-					}
-					$gFont['variants'][$key] = str_replace('regular', 'normal', $variant);
-				}
-				$fonts[$gFont['family']] = array(
-					'label' => $gFont['family'],
-					'attrs' => array(
-						'data-variants' => $gFont['variants']
-					)
-				);
-			}
-		}
+		$fonts = MPSLLayerPresetOptions::getFontList(true);
+		array_walk($fonts, function(&$item) {
+			$item = array(
+				'label' => $item['family'],
+				'value' => $item['family'],
+				'attrs' => array(
+					'data-variants' => $item['variants'] // Type: json
+//					'data-variants' => array_map(function($el) { return $el['value']; }, $item['variants']) // Type: split
+				)
+			);
+		});
+		$fonts['']['label'] = '-- ' . __('SELECT', 'motopress-slider-lite') . ' --';
 		wp_cache_set('mpsl_gfonts', $fonts);
 	}
 }
@@ -79,14 +68,23 @@ return array(
                 'type' => 'font_picker',
                 'label' => __('Font:', 'motopress-slider-lite'),
                 'default' => '',
-				// regular -> normal | (?) skip italic & [number]italic | default - regular, :first or empty
+				/**
+				 * Data format:
+	             *  - split: [index] => value  // Value uses both for value and label. Label = ucfirst(Value)
+	             *  - json: [index] => { value => 'value', label => 'label' }
+				 */
+				// NOTE: regular -> normal | (?) skip italic & [number]italic | default - regular, :first or empty
 	            'list' => $fonts,
+				/** Element key - where dynamic data is taken */
 	            'listAttrSettings' => array(
+		            /**
+		             * Type: json | split
+		             * Delimiter: Used only with type `split`
+		             */
 		            'data-variants' => array(
-			            // split|json
-			            // format: [index] => { key => 'key', value => 'value' }
-			            'type' => 'split',
-						'delimiter' => ',', // if `split`
+			            'type' => 'json',
+//			            'type' => 'split',
+//						'delimiter' => ',',
 		            )
 	            ),
 				'disabled_dependency' => array(

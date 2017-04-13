@@ -5,8 +5,8 @@ function mpslFixAfterUpdate() {
     global $mpsl_settings;
 
     // Queue upgrades
-//    $currentVersion = get_option('mpsl_version', null);
     $currentDBVersion = get_option('mpsl_db_version', null);
+	$latestVersionToUpdate = end($mpsl_settings['versions_to_update']);
 
     // Fix for v1.0.2
     if ($currentDBVersion === null and version_compare($mpsl_settings['plugin_version'], '1.0.2', '>')) {
@@ -19,7 +19,7 @@ function mpslFixAfterUpdate() {
     }
 
     // Write here max version that needs update
-    if (version_compare($currentDBVersion, '1.2.0', '<') and null !== $currentDBVersion) {
+    if (version_compare($currentDBVersion, $latestVersionToUpdate, '<') and null !== $currentDBVersion) {
         update_option('_mpsl_needs_update', 1);
     } else {
         update_option('mpsl_db_version', $mpsl_settings['plugin_version']);

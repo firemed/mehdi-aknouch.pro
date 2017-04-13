@@ -73,7 +73,7 @@ if (is_null($sliderId)) {
             echo '<a id="edit_slides" class="button-secondary mpsl-button" href="' . add_query_arg(array('view' => 'slides', 'id' => $sliderId), menu_page_url($mpsl_settings['plugin_name'], false)) . '">' . __('Edit Slides', 'motopress-slider-lite') . '</a>';
         }
 
-        echo '<a id="slider_preview" class="button-secondary mpsl-button" href="#" data-mpsl-slider-id="'. $sliderId .'" >' . __('Preview slider', 'motopress-slider-lite') . '</a>';
+        echo '<a id="slider_preview" class="button-secondary mpsl-button" href="#" data-mpsl-slider-id="'. $sliderId .'" >' . __('Preview Slider', 'motopress-slider-lite') . '</a>';
         echo '<a class="button-secondary mpsl-button" href="' . add_query_arg(array('view' => 'sliders') ,menu_page_url($mpsl_settings['plugin_name'], false)) . '">' . __('Close', 'motopress-slider-lite') . '</a>';
     }
     ?>

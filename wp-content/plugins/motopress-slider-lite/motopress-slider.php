@@ -3,7 +3,7 @@
 Plugin Name: MotoPress Slider Lite
 Plugin URI: http://www.getmotopress.com/plugins/slider/
 Description: Responsive MotoPress Slider for your WordPress theme. This plugin is all you need for creating beautiful slideshows, smooth transitions, effects and animations. Easy navigation, intuitive interface and responsive layout.
-Version: 1.3.4
+Version: 2.0.1
 Author: MotoPress
 Author URI: http://www.getmotopress.com/
 Text Domain: motopress-slider-lite
@@ -30,6 +30,7 @@ require_once $mpsl_plugin_dir_path . 'settings/settings.php';
 require_once $mpsl_plugin_dir_path . 'includes/classes/Sharing.php';
 require_once $mpsl_plugin_dir_path . 'includes/classes/MPSLDB.php';
 require_once $mpsl_plugin_dir_path . 'includes/classes/SliderAPI.php';
+require_once $mpsl_plugin_dir_path . 'includes/classes/MPSLLayout.php';
 require_once $mpsl_plugin_dir_path . 'includes/classes/MPSLOptions.php';
 require_once $mpsl_plugin_dir_path . 'includes/classes/OptionsFactory.php';
 require_once $mpsl_plugin_dir_path . 'includes/classes/SliderOptions.php';
@@ -54,6 +55,7 @@ class MPSLAdmin {
     const SLIDES_TABLE = 'mpsl_slides';
     const SLIDES_PREVIEW_TABLE = 'mpsl_slides_preview';
     const SLIDERS_PREVIEW_TABLE = 'mpsl_sliders_preview';
+	/** @var MPSLSliderOptions | MPSLSlideOptions | MPSLSliderPreview | MPSLSlidersList | MPSLSlidesList */
     public $pageController;
 
     private $mpsl_settings;
@@ -66,7 +68,7 @@ class MPSLAdmin {
 
     public function __construct() {
         global $mpsl_settings;
-	    MPSLSharing::$isMPCEEditor = (isset($_GET['motopress-ce']) or (isset($_POST['action']) and $_POST['action'] === 'motopress_ce_render_shortcode'));
+
         $this->pluginDir = $mpsl_settings['plugin_dir_path'];
         $this->mpsl_settings = &$mpsl_settings;
 
@@ -92,7 +94,10 @@ class MPSLAdmin {
                     $this->pageController = $slider;
                     break;
                 case 'slide' :
-                    $id = isset($_GET['id']) ? $_GET['id'] : null;
+                    $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
+                    if (!is_null($id) && !MPSliderDB::getInstance()->isSlideExists($id)) {
+                        wp_die(sprintf(__('Slide with id %s is not exists!', 'motopress-slider-lite'), $id));
+                    }
 //                    $slider = new MPSLSlideOptions($id);
                     $slider = MPSLSlideOptions::getInstance($id);
                     $this->pageController = $slider;
@@ -459,6 +464,7 @@ class MPSLAdmin {
             wp_enqueue_style('mpsl-admin', $mpsl_settings['plugin_dir_url'] . 'css/admin.css', array(), $mpsl_settings['plugin_version']);
 
             if ($page === 'slide') {
+                wp_enqueue_style('mpsl-simplegrid', $mpsl_settings['plugin_dir_url'] . 'vendor/simplegrid/simplegrid.css', array(), $mpsl_settings['plugin_version']);
                 wp_enqueue_style('mpsl-slide', $mpsl_settings['plugin_dir_url'] . 'css/slide.css', array(), $mpsl_settings['plugin_version']);
                 $customPreloaderImageSrc = apply_filters('mpsl_preloader_src', false);
                 if ($customPreloaderImageSrc) {
@@ -468,7 +474,7 @@ class MPSLAdmin {
             wp_register_script('mpsl-canjs', $mpsl_settings['plugin_dir_url'] . 'vendor/canjs/can.custom.min.js', $deps, $mpsl_settings['canjs_version'], true);
             $deps[] = 'mpsl-canjs';
 
-            wp_register_script('mpsl-functions', $mpsl_settings['plugin_dir_url'] . 'js/Functions.js', $deps, $mpsl_settings['plugin_version'], true);
+            wp_register_script('mpsl-functions', $mpsl_settings['plugin_dir_url'] . 'js/functions.js', $deps, $mpsl_settings['plugin_version'], true);
             $deps[] = 'mpsl-functions';
 
             if (in_array($page, array('slider', 'slide'))) {
@@ -508,6 +514,7 @@ class MPSLAdmin {
             );
             if (in_array($page, array('slider', 'slide', 'slides'))) {
                 $jsVars['Vars']['page'] = $this->pageController->getAttributes();
+                $jsVars['Vars']['page']['type'] = $page;
             }
             if(!in_array($page, array('preview'))){
                 $jsVars['Vars']['page']['grouped_options'] = $this->pageController->getOptions(true);
@@ -516,10 +523,24 @@ class MPSLAdmin {
 
             if ($page === 'slide') {
                 $jsVars['Vars']['slider'] = $this->pageController->slider->getOptions();
+
+	            // Get layouts
+	            $layouts = $this->pageController->slider->getLayouts();
+//	            $enabledLayouts = MPSLSliderOptions::filterLayoutsByEnabled($layouts);
+
+                $jsVars['Vars']['layout'] = array(
+	                'list' => $layouts,
+	                'default' => MPSLLayout::DEFAULT_LAYOUT,
+	                'options' => MPSLLayout::$OPTIONS,
+	                'style_options' => MPSLLayout::$STYLE_OPTIONS,
+                );
+	            // End Get layouts
+
 	            $jsVars['Vars']['layer'] = array(
 		            'list' => $this->pageController->getLayers(),
 		            'grouped_options' => $this->pageController->getLayerOptions(true),
 		            'options' => $this->pageController->getLayerOptions(),
+		            'layouted_defaults' => $this->pageController->getLayoutedOptionsDefaults('layer'),
 		            'defaults' => $this->pageController->getOptionsDefaults('layer'),
 		            'white_space_class_prefix' => MPSLSlideOptions::LAYER_WHITE_SPACE_CLASS_PREFIX
 	            );
@@ -534,7 +555,9 @@ class MPSLAdmin {
 		            'class_prefix' => MPSLLayerPresetOptions::PRESET_PREFIX,
 		            'private_class_prefix' => MPSLLayerPresetOptions::PRIVATE_PRESET_PREFIX,
 		            'layer_class' => MPSLLayerPresetOptions::LAYER_CLASS,
-		            'layer_hover_class' => MPSLLayerPresetOptions::LAYER_HOVER_CLASS
+		            'layer_hover_class' => MPSLLayerPresetOptions::LAYER_HOVER_CLASS,
+		            'font_list' => MPSLLayerPresetOptions::getFontList(),
+		            'default_font_weight_list' => MPSLLayerPresetOptions::getDefaultFontWeightList()
 	            );
             }
 
@@ -587,7 +610,7 @@ class MPSLAdmin {
             'layer_want_delete_all' => __('Do you really want to delete all the layers?', 'motopress-slider-lite'),
             'import_export_dialog_title' => sprintf(__('%s Import and Export', 'motopress-slider-lite'), $mpsl_settings['product_name']),
             'template_dialog_title' => __('Create New Slider', 'motopress-slider-lite'),
-            'preview_dialog_title' => __('Preview slider', 'motopress-slider-lite'),
+            'preview_dialog_title' => __('Preview Slider', 'motopress-slider-lite'),
             'no_sliders_selected_to_export' => __('No sliders selected to export.', 'motopress-slider-lite'),
             'style_editor_dialog_title' => __('Style Editor', 'motopress-slider-lite'),
             'style_editor_dialog_presets_title' => __('Presets', 'motopress-slider-lite'),
@@ -1172,7 +1195,6 @@ function mpsl_enqueue_core_scripts_styles($edit_mode = false) {
 		}
 
 		wp_enqueue_script('mpsl-vendor', $mpsl_settings['plugin_dir_url'] . 'motoslider_core/scripts/vendor.js', array('jquery'), $mpsl_settings['core_version'], true);
-//    wp_enqueue_script('jquery.parallax', $mpsl_settings['plugin_dir_url'] . 'motoslider_core/scripts/jquery.jkit.custom.1.2.16.min.js', array('jquery'), $mpsl_settings['core_version'], true);
 		wp_enqueue_script('mpsl-core', $mpsl_settings['plugin_dir_url'] . 'motoslider_core/scripts/motoslider.js', array(), $mpsl_settings['core_version'], true);
 
 		MPSLSharing::$isScriptsStylesEnqueued = true;

@@ -194,7 +194,9 @@ class MPSLSliderOptions extends MPSLMainOptions {
 	        if (!$slideVisible && !($this->slidePreview && $this->previewSlideId == $slide['id'])) continue;
 
             $slideData['layers'] = $slideObj->getLayers();
-            $slideData['active'] = ($this->slidePreview && $this->previewSlideId == $slide['id']) || (!$this->slidePreview && $this->options['main']['options']['start_slide']['value'] == $counter);
+
+            $slideData['active'] = ($this->slidePreview && $this->previewSlideId == $slide['id']) || (!$this->slidePreview && $this->options['appearance']['options']['start_slide']['value'] == $counter);
+
             $slidesData[] = $slideData;
             $counter++;
         }
@@ -544,17 +546,83 @@ class MPSLSliderOptions extends MPSLMainOptions {
 
                 if (in_array($tax_term['taxonomy'], $arr)) {
                     $result[] = array(
-                        'key' => $tax_term['term_id'],
-                        'value' => $tax_term['name']
+                        'value' => $tax_term['term_id'],
+                        'label' => $tax_term['name']
                     );
                 }
             }
         }
 
 //        if (in_array($postTypeName, array('post', 'product'))) {
-            array_unshift($result, array('key' => 0, 'value' => 'All ' . $type));
+            array_unshift($result, array('value' => 0, 'label' => 'All ' . $type));
 //        }
         return $result;
     }
+
+	/**
+	 * Get layouts structure
+	 * @return array
+	 */
+	public function getLayouts() {
+		$layouts = array(
+			// Add main (default) layout
+			'desktop' => array(
+				'label' => __('Desktop', 'motopress-slider-lite'),
+				'depend_on' => 'desktop',
+				'enabled' => true, // Desktop. Desktop never changes...
+				'width' => (int) $this->getOptionAttr('main', 'width', 'value'), // But width...
+				'height' => (int) $this->getOptionAttr('main', 'height', 'value') // ... and height do
+			)
+			// 'notebook' => array(...),
+			// 'tablet' => array(...),
+			// 'mobile' => array(...)
+		);
+
+		$secondaryLayouts = array(
+			'notebook' => array(
+				'label' => __('Laptop', 'motopress-slider-lite'),
+				'depend_on' => 'desktop'
+			),
+			'tablet' => array(
+				'label' => __('Tablet', 'motopress-slider-lite'),
+				'depend_on' => 'notebook'
+			),
+			'mobile' => array(
+				'label' => __('Mobile', 'motopress-slider-lite'),
+				'depend_on' => 'tablet'
+			)
+		);
+
+		foreach ($secondaryLayouts as $layoutName => $params) {
+			$dependOn = $params['depend_on'];
+
+			// Add new layout
+			$layouts[$layoutName] = array(
+				'label' => $params['label'],
+				'depend_on' => $dependOn,
+				'enabled' => (bool) $this->getOptionAttr('size', 'enable_' . $layoutName, 'value'),
+				'width' => (int) $this->getOptionAttr('size', $layoutName . '_width', 'value'),
+				'height' => (int) $this->getOptionAttr('size', $layoutName . '_height', 'value')
+			);
+
+			// Depend on enabled layouts only
+			if (!$layouts[$dependOn]['enabled']) {
+				$layouts[$layoutName]['depend_on'] = $layouts[$dependOn]['depend_on'];
+			}
+		}
+
+		return $layouts;
+	}
+
+	/**
+	 * @param array $layouts Layouts structure
+	 * @return array
+	 */
+	public static function filterLayoutsByEnabled($layouts = array()) {
+		return array_filter($layouts, function($layout) {
+            return $layout['enabled'];
+        });
+
+	}
 
 }

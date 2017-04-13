@@ -8,10 +8,11 @@
     class landing_page_wb {
         
         private static $titles = array(
-        'title-name' => 'Your name',
-        'title-email' => 'Your email',
+        'title-name'    => 'Your name',
+        'title-email'   => 'Your email',
         'title-message' => 'Describe your wish',
-        'title-phone' => 'Want a call?',
+        'title-phone'   => 'Want a call?',
+        'title-button'  => 'Make order',
         );
 
         public static $post = null;
@@ -205,6 +206,7 @@
                 $settings['title-email']   = trim(stripslashes(strip_tags($_POST['title-email'])));
                 $settings['title-message'] = trim(stripslashes(strip_tags($_POST['title-message'])));
                 $settings['title-phone']   = trim(stripslashes(strip_tags($_POST['title-phone'])));
+                $settings['title-button']   = trim(stripslashes(strip_tags($_POST['title-button'])));
                 update_option( FORM_APPLICATION . "settings", $settings );
             }
             

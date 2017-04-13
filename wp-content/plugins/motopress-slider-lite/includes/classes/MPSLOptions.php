@@ -24,8 +24,13 @@ abstract class MPSLOptions {
                 $options[$grpName]['options'][$optName]['group'] = $grpName;
                 $options[$grpName]['options'][$optName]['name'] = $optName;
 	            $options[$grpName]['options'][$optName]['unit'] = array_key_exists('unit', $opt) ? $opt['unit'] : '';
-	            $options[$grpName]['options'][$optName]['value'] = array_key_exists('default', $opt) ? $opt['default'] : '';
                 $options[$grpName]['options'][$optName]['hidden'] = isset($opt['hidden']) ? $opt['hidden'] : false;
+                $options[$grpName]['options'][$optName]['layout_dependent'] = isset($opt['layout_dependent']) ? $opt['layout_dependent'] : false;
+
+	            // Prepare option
+	            $options[$grpName]['options'][$optName] = $this->prepareOption($optName, $options[$grpName]['options'][$optName]);
+
+	            $options[$grpName]['options'][$optName]['value'] = array_key_exists('default', $opt) ? $options[$grpName]['options'][$optName]['default'] : '';
 
 	            foreach ($this->dependencyTypes as $depType) {
 		            if (array_key_exists($depType, $opt)) {
@@ -66,8 +71,13 @@ abstract class MPSLOptions {
                         $options[$grpName]['options'][$optName]['options'][$childOptName]['group'] = $grpName;
                         $options[$grpName]['options'][$optName]['options'][$childOptName]['name'] = $childOptName;
 	                    $options[$grpName]['options'][$optName]['options'][$childOptName]['unit'] = array_key_exists('unit', $childOpt) ? $childOpt['unit'] : '';
-                        $options[$grpName]['options'][$optName]['options'][$childOptName]['value'] = $childOpt['default'];
 						$options[$grpName]['options'][$optName]['options'][$childOptName]['skip'] = $skipChild;
+						$options[$grpName]['options'][$optName]['options'][$childOptName]['layout_dependent'] = isset($childOpt['layout_dependent']) ? $childOpt['layout_dependent'] : false;
+
+						// Prepare child option
+	                    $options[$grpName]['options'][$optName]['options'][$childOptName] = $this->prepareOption($childOptName, $options[$grpName]['options'][$optName]['options'][$childOptName]);
+
+	                    $options[$grpName]['options'][$optName]['options'][$childOptName]['value'] = $options[$grpName]['options'][$optName]['options'][$childOptName]['default'];
 
 	                    foreach ($this->dependencyTypes as $depType) {
 		                    if (!array_key_exists($depType, $childOpt) && array_key_exists($depType, $opt) && count($opt[$depType])) {
@@ -79,6 +89,10 @@ abstract class MPSLOptions {
             }
         }
     }
+
+	protected function prepareOption($name, $option) {
+		return $option;
+	}
 
 	public function getOptions($grouped = false) {
 	    if ($grouped) {
@@ -113,10 +127,11 @@ abstract class MPSLOptions {
         $options = include($this->getSettingsPath($settingsFileName));
         $defaults = array();
 
-        foreach($options as $grp) {
+        foreach ($options as $grp) {
             if (isset($grp['options'])) {
                 foreach ($grp['options'] as $optName => $opt){
 	                $defaults[$optName] = array_key_exists('default', $opt) ? $opt['default'] : '';
+
                     if (array_key_exists('options', $opt)) {
                         foreach ($opt['options'] as $childOptName => $childOpt) {
                             $defaults[$childOptName] = $childOpt['default'];
@@ -125,6 +140,7 @@ abstract class MPSLOptions {
                 }
             }
         }
+
         return $defaults;
     }
 

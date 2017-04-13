@@ -73,8 +73,47 @@ body{
 
   .contact {
     margin: -20px;
-  }
+    form.wpcf7-form input {
+        border: none;
+        background: #edebec;
+        width: 100%;
+        height: 42px;
+        margin: 0 0 20px 0;
+        padding: 0px 10px;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        color: #000000;
+        font-size: 16px;
+        font-weight: normal;
 
+        &[type=email]{
+          width:100%;
+        }
+
+      &[type=submit].submit_btn{
+          //left: 33.5%;
+          background: #fe5e00;
+          border: none;
+          padding: 9px 30px;
+          color: #fff;
+          width:165px;
+          left: 33%;
+          float: left;
+          margin: -34px 0 0 0;
+          z-index: 2;
+          position: relative;
+          font-size: 18px;
+          text-transform: uppercase;
+          font-weight: normal;
+          transition: .4s cubic-bezier(0.15,.46,.45,.94);
+          -webkit-transition: .4s cubic-bezier(0.25,.46,.45,.94);
+          -moz-transition: .4s cubic-bezier(0.25,.46,.45,.94);
+        }
+
+    }
+
+  }
 }
 
 /** WTF IS THIS SHIT */

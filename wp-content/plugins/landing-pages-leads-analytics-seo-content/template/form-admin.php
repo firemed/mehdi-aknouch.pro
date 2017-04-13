@@ -90,6 +90,14 @@
                     </div>
                     <div class="clear">
                         <div class="label">
+                            <label for="id-title-message">Button label</label>
+                        </div>
+                        <div class="input">
+                            <input type="text" value="<?php echo isset($settings['title-button']) ? ($settings['title-button']) : self::$titles['title-button'];?>" name="title-button" id="id-title-button"> 
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div class="label">
                             <label for="id-text-description">Text on the right side</label>
                             <br />
                             <div style="font-size: 12px; float:left; margin-top:3px;"><i>Will be displayed near order form, for example to describe the order for user. Using of HTML tags is possible.</i></div>
@@ -195,22 +203,24 @@
                                 <div class="form-contact-view">
                                     <table class="form-table">
                                         <tr>
-                                            <th>name</th>
+                                            <th>Name</th>
                                             <td><?php echo $vars[$i]['name'];?></td>
                                             <th rowspan="1">Message(desire)</th> 
                                         </tr>
                                         <tr>
                                             <th>Email</th>
                                             <td><?php echo $vars[$i]['email'];?></td>
-                                            <td rowspan="5"><?php echo $vars[$i]['message'];?></td>
+                                            <td rowspan="1"><?php echo $vars[$i]['message'];?></td>
                                         </tr>
                                         <tr>
                                             <th>Date create</th>
                                             <td><?php echo $vars[$i]['create'];?></td>
+                                            <th rowspan="1">Phone</th>
                                         </tr>  
                                         <tr>
                                             <th>IP</th>
                                             <td><?php echo $vars[$i]['ip'];?></td>
+                                            <td rowspan="4"><?php echo $vars[$i]['phone'];?></td>
                                         </tr>  
                                         <tr>
                                             <th>Landing Page</th>

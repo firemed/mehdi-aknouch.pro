@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: http://www.getmotopress.com/
 Tags: slider, image slider, responsive slider, responsive slides, responsive slideshows, slideshow, content slider, video slider, vimeo slider, youtube slider, drag and drop slider, posts slider, woocommerce slider
 Requires at least: 3.6
-Tested up to: 4.5
+Tested up to: 4.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

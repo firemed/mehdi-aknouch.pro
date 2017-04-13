@@ -5,7 +5,7 @@ Donate link: http://www.wpadm.com/donate
 URI: http://www.wpadm.com/landing-pages
 Tags: landing pages, landing page, landing page plugin, landingpages, landingpage, landingpage plugin, conversion pages, conversion, leads, analytics, SEO, content, Create, landing, page, pages, post, posts website, sales, traffic, visitor, customer, registrations, web, admin, plugin, google, woocommerce, themes, theme, template, wp, wordpress, generator, tool, tools, builder, online, free, marketing, optimizer, media, launch page, admin, seo, load, loading, visitor, user, content generator, product, products, layout, design
 Requires at least: 3.9
-Tested up to: 4.6
+Tested up to: 4.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

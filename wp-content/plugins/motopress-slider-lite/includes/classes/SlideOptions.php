@@ -98,13 +98,36 @@ class MPSLSlideOptions extends MPSLMainOptions {
 		}
 	}
 
+	protected function prepareOption($name, $option) {
+		$option = parent::prepareOption($name, $option);
+
+		if (MPSLLayout::isLayoutDependent($option)) {
+			$option['default'] = MPSLLayout::makeLayouted($option['default']);
+		}
+
+		return $option;
+	}
+
     public function overrideLayers($layers = null) {
         $defaults = $this->getDefaults($this->layerOptions);
 
 	    if (!empty($layers)) {
             foreach($layers as $layerKey => $layer) {
-                $layers[$layerKey] = array_merge($defaults, $layer);
-//                $layers[$layerKey] = array_replace_recursive($defaults, $layer);
+
+	            // Convert single layout option to multiple (layouted)
+	            foreach (MPSLLayout::$OPTIONS as $layoutOpt) {
+					if (array_key_exists($layoutOpt, $layers[$layerKey])) {
+						if (!MPSLLayout::isLayoutedOption($layers[$layerKey][$layoutOpt])) {
+							$layers[$layerKey][$layoutOpt] = MPSLLayout::makeLayouted($layers[$layerKey][$layoutOpt]);
+
+						} elseif (!MPSLLayout::isFullyLayoutedOption($layers[$layerKey][$layoutOpt])) {
+							$layers[$layerKey][$layoutOpt] = MPSLLayout::makeFullyLayouted($layers[$layerKey][$layoutOpt]);
+						}
+					}
+			    }
+
+//                $layers[$layerKey] = array_merge($defaults, $layer);
+                $layers[$layerKey] = array_replace_recursive($defaults, $layers[$layerKey]);
 
 	            $layers[$layerKey]['private_styles'] = $this->layerPresets->override($layers[$layerKey]['private_styles'], true);
 	            if ($layers[$layerKey]['preset'] === 'private' && !$layers[$layerKey]['private_preset_class']) {
@@ -120,8 +143,10 @@ class MPSLSlideOptions extends MPSLMainOptions {
                     }
                     $layers[$layerKey]['image_url'] = $image_url;
                 }
+
             }
         }
+
         $this->layers = $layers;
     }
 
@@ -237,19 +262,36 @@ class MPSLSlideOptions extends MPSLMainOptions {
 	    $fonts = array();
 
 	    foreach ($this->layers as &$layer) {
+//		    $hoverStyles = array();
+
 		    // Get used fonts
 		    if ($presetClass = $layer['preset']) {
+
 			    if ($presetClass === 'private') {
 					$styles = $layer['private_styles'];
+
 			    } else if (isset($presets[$presetClass])) {
 				    $styles = $presets[$presetClass];
 			    }
-			    if (isset($styles)) $fonts = array_merge_recursive($fonts, $this->layerPresets->getFontsByPreset($styles));
+
+			    if (isset($styles)) {
+				    // Save fonts
+				    $fonts = array_merge_recursive($fonts, $this->layerPresets->getFontsByPreset($styles));
+
+				    // Save hover styles
+//				    $hoverStyles = $this->layerPresets->getHoverStylesByPreset($styles);
+			    }
+
 		    }
 
+//		    $layer['hover_styles'] = $hoverStyles;
 		    $layer['private_styles'] = $this->layerPresets->clearPreset($layer['private_styles']);
+		    $layer['private_styles'] = $this->layerPresets->clearLayoutOptions($layer['private_styles']);
 	    }
+
         $this->clearLayerOptions();
+        $this->processLayerLayoutOptions();
+
 	    // Set used fonts
 	    $options['fonts'] = MPSLLayerPresetOptions::fontsUnique($fonts);
 
@@ -293,7 +335,7 @@ class MPSLSlideOptions extends MPSLMainOptions {
                 $skip = isset($option['skip']) && $option['skip'];
                 $skipChild = isset($option['skipChild']) && $option['skipChild'];
                 if ($skip || $skipChild) {
-                    if ($skipChild) $optsToSkip = array_keys($option['options']);
+                    $optsToSkip = $skipChild ? array_keys($option['options']) : array();
                     foreach ($this->layers as &$layer) {
                         if ($skip && array_key_exists($optKey, $layer)) {
                             unset($layer[$optKey]);
@@ -310,6 +352,16 @@ class MPSLSlideOptions extends MPSLMainOptions {
             }
         }
     }
+
+	private function processLayerLayoutOptions() {
+		foreach ($this->layers as &$layer) {
+			foreach (MPSLLayout::$OPTIONS as $layoutOpt) {
+				if (array_key_exists($layoutOpt, $layer) && MPSLLayout::isLayoutedOption($layer[$layoutOpt])) {
+					$layer[$layoutOpt] = MPSLLayout::clearEmptyLayoutOptions($layer[$layoutOpt]);
+				}
+			}
+		}
+	}
 
     public function delete() {
         global $wpdb;
@@ -397,7 +449,9 @@ class MPSLSlideOptions extends MPSLMainOptions {
 
     public function renderLayer() {
         global $mpsl_settings;
+	    MPSLOptionsFactory::configPrintValue(false);
         include($this->getViewPath('layer'));
+	    MPSLOptionsFactory::resetPrintValue();
     }
 
     public function getSliderId() {
@@ -447,11 +501,19 @@ class MPSLSlideOptions extends MPSLMainOptions {
     public function getLayerOptions($grouped = false) {
 	    if ($grouped) {
 			return $this->layerOptions;
+
 		} else {
 			$options = array();
-			foreach ($this->layerOptions as $grp) {
+			foreach ($this->layerOptions as $grpName => $grp) {
 				$options = array_merge($options, $grp['options']);
+
+				foreach ($grp['options'] as $optName => $opt) {
+					if (array_key_exists('options', $opt)) {
+						$options = array_merge($options, $opt['options']);
+					}
+				}
 			}
+
 			return $options;
 		}
     }
@@ -550,6 +612,7 @@ class MPSLSlideOptions extends MPSLMainOptions {
         if($type === 'duration') {
             $result = array(
                 'type' => 'number',
+	            'layer_type' => 'all',
                 'label2' => __('duration (ms): ', 'motopress-slider-lite'),
                 'default' => 1000,
                 'min' => 0
@@ -562,6 +625,7 @@ class MPSLSlideOptions extends MPSLMainOptions {
         } else if ($type === 'easings'){
             $result =  array(
                 'type' => 'select',
+	            'layer_type' => 'all',
                 'label2' => __('Easing :', 'motopress-slider-lite'),
                 'default' => 'linear',
                 'list' => array(
@@ -577,6 +641,14 @@ class MPSLSlideOptions extends MPSLMainOptions {
                     'easeInExpo' => __('easeInExpo', 'motopress-slider-lite'),
                     'easeInCirc' => __('easeInCirc', 'motopress-slider-lite'),
                     'easeInBack' => __('easeInBack', 'motopress-slider-lite'),
+                    'easeOutQuad' => __('easeOutQuad', 'motopress-slider-lite'),
+                    'easeOutCubic' => __('easeOutCubic', 'motopress-slider-lite'),
+                    'easeOutQuart' => __('easeOutQuart', 'motopress-slider-lite'),
+                    'easeOutQuint' => __('easeOutQuint', 'motopress-slider-lite'),
+                    'easeOutSine' => __('easeOutSine', 'motopress-slider-lite'),
+                    'easeOutExpo' => __('easeOutExpo', 'motopress-slider-lite'),
+                    'easeOutCirc' => __('easeOutCirc', 'motopress-slider-lite'),
+                    'easeOutBack' => __('easeOutBack', 'motopress-slider-lite'),
                     'easeInOutQuad' => __('easeInOutQuad', 'motopress-slider-lite'),
                     'easeInOutCubic' => __('easeInOutCubic', 'motopress-slider-lite'),
                     'easeInOutQuart' => __('easeInOutQuart', 'motopress-slider-lite'),
@@ -585,6 +657,7 @@ class MPSLSlideOptions extends MPSLMainOptions {
                     'easeInOutExpo' => __('easeInOutExpo', 'motopress-slider-lite'),
                     'easeInOutCirc' => __('easeInOutCirc', 'motopress-slider-lite'),
                     'easeInOutBack' => __('easeInOutBack', 'motopress-slider-lite'),
+
                 )
             );
             if($isCloned) {
@@ -594,6 +667,7 @@ class MPSLSlideOptions extends MPSLMainOptions {
         } else {
             $result =  array(
                 'type' => 'select',
+	            'layer_type' => 'all',
                 'label2' => __('Start Animation :', 'motopress-slider-lite'),
                 'default' => 'fadeIn',
                 'list' => array(
@@ -645,6 +719,7 @@ class MPSLSlideOptions extends MPSLMainOptions {
         if($type === 'duration') {
             $result = array(
                 'type' => 'number',
+	            'layer_type' => 'all',
                 'label2' => __('duration (ms): ', 'motopress-slider-lite'),
                 'default' => 1000,
                 'min' => 0
@@ -657,11 +732,22 @@ class MPSLSlideOptions extends MPSLMainOptions {
         } else if ($type === 'easings'){
             $result = array(
                 'type' => 'select',
+	            'layer_type' => 'all',
                 'label2' => __('Easing :', 'motopress-slider-lite'),
                 'default' => 'linear',
                 'list' => array(
                     'linear' => __('linear', 'motopress-slider-lite'),
                     'ease' => __('ease', 'motopress-slider-lite'),
+                    'easeIn' => __('easeIn', 'motopress-slider-lite'),
+                    'easeInOut' => __('easeInOut', 'motopress-slider-lite'),
+                    'easeInQuad' => __('easeInQuad', 'motopress-slider-lite'),
+                    'easeInCubic' => __('easeInCubic', 'motopress-slider-lite'),
+                    'easeInQuart' => __('easeInQuart', 'motopress-slider-lite'),
+                    'easeInQuint' => __('easeInQuint', 'motopress-slider-lite'),
+                    'easeInSine' => __('easeInSine', 'motopress-slider-lite'),
+                    'easeInExpo' => __('easeInExpo', 'motopress-slider-lite'),
+                    'easeInCirc' => __('easeInCirc', 'motopress-slider-lite'),
+                    'easeInBack' => __('easeInBack', 'motopress-slider-lite'),
                     'easeOutQuad' => __('easeOutQuad', 'motopress-slider-lite'),
                     'easeOutCubic' => __('easeOutCubic', 'motopress-slider-lite'),
                     'easeOutQuart' => __('easeOutQuart', 'motopress-slider-lite'),
@@ -688,6 +774,7 @@ class MPSLSlideOptions extends MPSLMainOptions {
         } else {
             $result =  array(
                 'type' => 'select',
+	            'layer_type' => 'all',
                 'label2' => __('End Animation :', 'motopress-slider-lite'),
                 'default' => 'auto',
                 'list' => array(
@@ -736,5 +823,17 @@ class MPSLSlideOptions extends MPSLMainOptions {
     public function getOptionsByType($statusType, $type, $isCloned) {
         return $statusType === 'start'  ? $this->getStartOptionByType($type, $isCloned) : $this->getEndOptionByType($type, $isCloned);
     }
+
+	public function getLayoutedOptionsDefaults($settingsFileName = false) {
+		$defaults = $this->getOptionsDefaults($settingsFileName);
+
+		foreach ($defaults as $name => &$value) {
+			if (MPSLLayout::isLayoutDependentByName($name)) {
+				$value = MPSLLayout::makeLayouted($value);
+			}
+		}
+
+		return $defaults;
+	}
 
 }

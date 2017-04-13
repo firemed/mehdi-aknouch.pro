@@ -32,6 +32,9 @@
 .form-application div.one-label {
     width: 150px;
 }
+.form-application div.auto-width {
+    width: auto; 
+}
 .form-application div.one-input {
     width: 250px;
 }

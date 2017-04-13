@@ -78,8 +78,8 @@ $title_order = isset($title_post['title']) ? $title_post['title'] : $title_post 
             <div class="row-form">
                 <div class="label" style="padding-top: 0px;">
                 </div>
-                <div class="input" >
-                    <input type="submit" class="buttom-form-app" value="Make order">
+                <div class="input auto-width" >
+                    <input type="submit" class="buttom-form-app" value="<?php echo isset($setting['title-button']) ? $setting['title-button'] : self::$titles['title-button']; ?>">
                 </div>
             </div>
             <?php wp_nonce_field('form-send', 'create-application' ); ?>

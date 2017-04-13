@@ -71,7 +71,10 @@ $wrapperInlineStyle = $edit_mode ? 'style="width:' . ($sliderOptions['options'][
                                 if (in_array($layer['type'], array('html', 'button'))) {
                                     $layerContent = $layer['content'];
                                     $style = $layer['style'];
+                                } else {
+                                    $layerContent = '';
                                 }
+
                                 $attributes = $shortcode->stringifyAttributes($layer['attrs']);
                                 if ($layer['type'] === 'image') { ?>
                                     <div class="layer" <?php echo $attributes; ?>>

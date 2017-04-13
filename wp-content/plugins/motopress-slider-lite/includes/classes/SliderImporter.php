@@ -1,4 +1,7 @@
 <?php
+
+//require_once dirname(__FILE__) . "/update_fixes/MPSL_Fix_Factory.php";
+
 class MPSLSliderImporter {      
     
     private $mpslUploadsDir;
@@ -34,7 +37,7 @@ class MPSLSliderImporter {
     
     public function renderImportPage(){  
         global $mpsl_settings;
-        echo '<h1>' . sprintf(__('Importing %s', 'motopress-slider-lite'), $mpsl_settings['product_name']) . '</h1>';
+        echo '<h1>' . sprintf(__('Import %s', 'motopress-slider-lite'), $mpsl_settings['product_name']) . '</h1>';
         $step = isset( $_REQUEST['step'] ) && !empty( $_REQUEST['step'] ) ? (int)$_REQUEST['step'] : 1;
         switch($step) { 
             case '1' : 
@@ -61,7 +64,7 @@ class MPSLSliderImporter {
         wp_enqueue_script('mpsl-importer', $this->mpsl_settings['plugin_dir_url'] . "js/importer.js", array('jquery'), $this->mpsl_settings['plugin_version'], true);
     ?>                
         <form action="<?php echo admin_url( 'admin.php?import=mpsl-importer&step=2'); ?>" method="post" enctype="multipart/form-data" >
-            <p><?php printf(__('To import sliders select %s Export file that you downloaded before then click import button.', 'motopress-slider-lite'), $this->mpsl_settings['product_name']); ?></p>
+            <p><?php printf(__('To import sliders select previously exported %s file and click the Import button.', 'motopress-slider-lite'), $this->mpsl_settings['product_name']); ?></p>
             <?php wp_nonce_field('mpsl-import', 'mpsl-import-nonce'); ?>
             <input type="hidden" name="mpsl-import-type" value="manual">
             <input type="hidden" name="max_file_size" value="<?php echo $bytes; ?>" />
@@ -81,7 +84,7 @@ class MPSLSliderImporter {
                         </th>
                         <td>
                             <input type="checkbox" name="mpsl_http_auth" id="mpsl_http_auth" value="true" autocomplete="off">
-                            <label for="mpsl_http_auth"><?php _e('Enable HTTP Auth', 'motopress-slider-lite');?></label>
+                            <label for="mpsl_http_auth"><?php _e('Enable HTTP authentication', 'motopress-slider-lite');?></label>
                         </td>
                     </tr>   
                     <tr class="need-mpsl_http_auth" style="display: none;">
@@ -169,8 +172,8 @@ class MPSLSliderImporter {
             if (!empty($importedMedia)) {
                 if ($this->isVerbose)
                     echo '<br/>' . __('Uploads imported', 'motopress-slider-lite') . '<br/><hr/><br/>';
-            }            
-            
+            }
+
             // replace placeholders in data with new attachment ids
             $this->updateAttachmentIds($import_data, $importedMedia);
 
@@ -178,6 +181,11 @@ class MPSLSliderImporter {
 	        $layerPresetsObj = MPSLLayerPresetOptions::getInstance();
 	        $presetsExists = isset($import_data['presets']) && is_array($import_data['presets']) && count($import_data['presets']);
 			$newPresetClasses = $presetsExists ? $layerPresetsObj->loadNewPresets($import_data['presets']) : array();
+
+//	        if ($isNeed200Fix = version_compare($import_data['info']['mpsl-ver'], '2.0.0', '<')) {
+//		        /** @var MPSL_Fix_v2_0_0 $fixer200 */
+//		        $fixer200 = MPSL_Fix_Factory::getFixer('2.0.0');
+//	        }
 
             foreach($import_data['sliders'] as $slider_data) {
 //                $slider = new MPSLSliderOptions();
@@ -194,10 +202,17 @@ class MPSLSliderImporter {
                         echo '<br/>';
                     }
                     foreach($slider_data['slides'] as $slide_data) {
+	                    $layers = is_array($slide_data['layers']) ? $slide_data['layers'] : array();
+
+	                    // Fix v2.0.0
+	                    /*if ($isNeed200Fix) {
+							$layers = $fixer200->fixLayers($layers);
+	                    }*/
+
                         $slide = new MPSLSlideOptions(); 
                         $slide->overrideOptions($slide_data['options'], false);
-                        $slide->prepareLayersForImport($slide_data['layers'], $newPresetClasses);
-                        $slide->setLayers($slide_data['layers']);
+                        $slide->prepareLayersForImport($layers, $newPresetClasses);
+                        $slide->setLayers($layers);
                         $result = $slide->import($sliderId);
                         if (false !== $result) {
                             if ($this->isVerbose) {

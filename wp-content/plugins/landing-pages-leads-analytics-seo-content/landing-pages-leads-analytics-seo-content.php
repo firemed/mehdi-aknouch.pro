@@ -2,7 +2,7 @@
     /**
     Plugin Name: Landing pages leads analytics SEO content
     Description: Create landing pages for your website to increase the sales number.
-    Version: 1.0.2
+    Version: 1.0.3
     */
     //add_action('widgets_init', 'init_form_application');
 

@@ -5,7 +5,7 @@ class MPSliderDB {
     private $lastRowID;
 	private static $instance = null;
 
-    function __construct() {
+    private function __construct() {
         global $mpsl_settings;
         $this->mpsl_settings = &$mpsl_settings;
     }

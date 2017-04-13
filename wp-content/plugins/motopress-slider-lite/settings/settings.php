@@ -26,11 +26,12 @@ if (version_compare($wp_version, '3.9', '<')) {
 $mpsl_settings['sliders_table'] = $wpdb->prefix . 'mpsl_sliders';
 $mpsl_settings['slides_table'] = $wpdb->prefix . 'mpsl_slides';
 $mpsl_settings['preview_slides_table'] = $wpdb->prefix . 'mpsl_slides_preview';
-$mpsl_settings['core_version'] = '1.2.3';
+$mpsl_settings['core_version'] = '2.0.0';
 $mpsl_settings['canjs_version'] = '2.3.22';
 $mpsl_settings['codemirror_version'] = '3.12';
 $mpsl_settings['spectrum_version'] = '1.7.1';
 $mpsl_settings['shortcode_name'] = 'mpsl';
+$mpsl_settings['versions_to_update'] = array('1.1.0', '1.2.0', '2.0.0');
 
 $wpVersion = get_bloginfo('version');
 $wpVersion = (double) $wpVersion;
@@ -39,7 +40,7 @@ $mpsl_settings['is_new_wp_version'] = ($wpVersion >= 3.5) ? true : false;
 $mpsl_settings['license_type'] = "Lite";
 $mpsl_settings['edd_mpsl_store_url'] = $pluginData['PluginURI'];
 $mpsl_settings['edd_mpsl_item_name'] = $pluginData['Name'] . ' ' . $mpsl_settings['license_type'];
-$mpsl_settings['renew_url'] = $pluginData['PluginURI'] . 'buy/';
+$mpsl_settings['renew_url'] = $pluginData['PluginURI'];
 
 $mpsl_settings['lite_upgrade_url'] = $pluginData['PluginURI'];
 

@@ -49,7 +49,19 @@ $presetsTableDisabled = ' mpsl-layer-presets-table-disabled';
 				                            <tbody>
 				                                <?php foreach ($optionsValue['options'] as $optionName => $option) { ?>
 					                                <?php if ($optionName === 'allow_style') continue; ?>
-				                                    <tr class="mpsl-option-wrapper <?php echo ($option['type'] === 'hidden') ? 'mpsl-option-wrapper-hidden' : ''; ?>">
+					                                <?php
+					                                $wrapperClasses = array();
+					                                if ($option['type'] === 'hidden') {
+						                                $wrapperClasses[] = 'mpsl-option-wrapper-hidden';
+					                                }
+					                                /*if (MPSLLayout::isLayoutDependentByName($optionName)) {
+						                                $wrapperClasses[] = 'mpsl-layout-font-option';
+						                                if ($optionName === 'color') {
+							                                //$wrapperClasses[] = 'mpsl-layout-font-option-color';
+						                                }
+					                                }*/
+					                                ?>
+				                                    <tr class="mpsl-option-wrapper <?php echo implode(' ', $wrapperClasses); ?>">
 				                                        <?php if (isset($option['label'])) { ?>
 				                                            <th>
 				                                                <?php MPSLOptionsFactory::addLabel($option); ?>

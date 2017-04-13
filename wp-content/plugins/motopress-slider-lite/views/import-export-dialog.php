@@ -3,14 +3,14 @@
     <div class="mpsl-import-wrapper">
         <h4><?php _e('Import', 'motopress-slider-lite' ) ?></h4>
         <form id="mpsl-import-form" action="<?php echo admin_url( 'admin.php?import=mpsl-importer&step=2'); ?>" method="post" enctype="multipart/form-data" >
-            <p><?php printf(__( 'To import sliders select %s Export file that you downloaded before then click import button.', 'motopress-slider-lite' ), $mpsl_settings['product_name']); ?></p>
+            <p><?php printf(__( 'To import sliders select previously exported %s file and click the Import button.', 'motopress-slider-lite' ), $mpsl_settings['product_name']); ?></p>
             <?php wp_nonce_field('mpsl-import', 'mpsl-import-nonce'); ?>
             <input type="hidden" name="mpsl-import-type" value="manual" />
             <label for="mpsl-import-file"><?php _e('Import File: ', 'motopress-slider-lite');?></label>
             <input type="file" name="mpsl-import-file" id="mpsl-import-file" required="required"/>
             <br/><br/>
             <input type="checkbox" name="mpsl_http_auth" id="mpsl_http_auth" value="true" autocomplete="off" />
-            <label for="mpsl_http_auth"><?php _e('Enable HTTP Auth', 'motopress-slider-lite');?></label>
+            <label for="mpsl_http_auth"><?php _e('Enable HTTP authentication', 'motopress-slider-lite');?></label>
             <br/>
             <div class="need-mpsl_http_auth" style="display: none;">
                 <label for="mpsl_http_auth_login"><?php _e('Login:', 'motopress-slider-lite');?></label>
@@ -58,7 +58,7 @@
                 <fieldset>
                         <?php wp_nonce_field('export-mpsl-sliders'); ?>
                         <input type="hidden" name="mpsl-export" value="1">
-                        <p><?php  _e( 'Downloads an export file that contains your selected sliders to import on your new site.', 'motopress-slider-lite' ); ?></p>
+                        <p><?php  _e( 'Export and download selected sliders. You can import them later on your new website.', 'motopress-slider-lite' ); ?></p>
                         <button id="mpsl-export-btn" class="button-primary"><?php _e('Export', 'motopress-slider-lite'); ?></button>
                 </fieldset>                
             </form>

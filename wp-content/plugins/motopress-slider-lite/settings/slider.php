@@ -80,12 +80,14 @@ if (($isCreatePage || $optionsExists) && !$isAjax && is_admin()) {
 							'data-categories' => $categories,
 							'data-tags' => $tags,
 //							'data-formats' => $postFormats
-						)
+						),
+						'value' => $postTypeName
 					);
 				} else {
 					$postTypesArr[$postTypeName] = array(
 						'label' => $postType->labels->singular_name,
-						'attrs' => array()
+						'attrs' => array(),
+						'value' => $postTypeName
 					);
 				}
 
@@ -97,18 +99,18 @@ if (($isCreatePage || $optionsExists) && !$isAjax && is_admin()) {
 				) {
 					if (!count($_categories)) {
 						foreach ($categories as $cat) {
-							$_categories[$cat['key']] = $cat['value'];
+							$_categories[$cat['value']] = $cat['label'];
 						}
 					}
 					if (!count($_tags)) {
 						foreach ($tags as $tag) {
-							$_tags[$tag['key']] = $tag['value'];
+							$_tags[$tag['value']] = $tag['label'];
 						}
 					}
 				}
 				if (!count($_format)) {
 					foreach ($postFormats as $format) {
-						$_format[$format['key']] = $format['value'];
+						$_format[$format['value']] = $format['label'];
 					}
 				}
 
@@ -121,7 +123,7 @@ if (($isCreatePage || $optionsExists) && !$isAjax && is_admin()) {
 
 $sliderSettings = array(
     'main' => array(
-        'title' => __('Slider Settings', 'motopress-slider-lite'),
+        'title' => __('General', 'motopress-slider-lite'),
         'icon' => null,
         'description' => '',
         'options' => array(
@@ -137,99 +139,38 @@ $sliderSettings = array(
             ),
             'title' => array(
                 'type' => 'text',
-                'label' => __('Slider title *:', 'motopress-slider-lite'),
-                'description' => __('The title of the slider. Example: Slider1', 'motopress-slider-lite'),
+                'label' => __('Slider title *', 'motopress-slider-lite'),
+                'description' => __('Required. The title of the slider. Example: Slider1', 'motopress-slider-lite'),
                 'default' => __('New Slider', 'motopress-slider-lite'),
                 'disabled' => false,
                 'required' => true,
             ),
             'alias' => array(
                 'type' => 'alias',
-                'label' => __('Slider alias *:', 'motopress-slider-lite'),
+                'label' => __('Slider alias *', 'motopress-slider-lite'),
                 'alias' => 'shortcode',
-                'description' => __('The alias that will be used in shortcode for embedding the slider. Alias must be unique. Example: slider1', 'motopress-slider-lite'),
+                'description' => __('Required. The alias that will be used in shortcode for embedding the slider. Alias must be unique. Example: slider1', 'motopress-slider-lite'),
                 'default' => '',
                 'disabled' => false,
                 'required' => true,
             ),
             'shortcode' => array(
                 'type' => 'shortcode',
-                'label' => __('Slider shortcode:', 'motopress-slider-lite'),
+                'label' => __('Slider Shortcode', 'motopress-slider-lite'),
                 'description' => 'Copy this shortocode and paste to your page.',
                 'default' => '',
                 'readonly' => true,
 //                'disabled' => false,
             ),
-            'full_width' => array(
-                'type' => 'checkbox',
-                'label' => '',
-                'label2' => __('Force Full Width', 'motopress-slider-lite'),
-                'description' => __('Enable this option to make this slider full-width / wide-screen', 'motopress-slider-lite'),
-                'default' => false
-            ),
-			'full_height' => array(
-				'type' => 'checkbox',
-				'label' => '',
-				'label2' => __('Force Full Height', 'motopress-slider-lite'),
-				'description' => __('Enable this option to make this slider full-height', 'motopress-slider-lite'),
-				'default' => false,
-			),
 
-			'full_height_offset' => array(
-				'type' => 'number',
-				'label' => __('Full height increment:', 'motopress-slider-lite'),
-				'description' => __('Slider height will be increased or decreased to this value', 'motopress-slider-lite'),
-				'default' => '',
-				'dependency' => array(
-					'parameter' => 'full_height',
-					'value' => true,
-				)
-			),
-
-			'full_height_units' => array(
-				'type' => 'select',
-				'label' => __('Increment units:', 'motopress-slider-lite'),
-				'default' => 'px',
-				'list' => array(
-					'px' => 'Pixels (px)',
-					'%' => 'Percents (%)',
-				),
-				'dependency' => array(
-					'parameter' => 'full_height',
-					'value' => true,
-				)
-			),
-
-			'full_height_container' => array(
-				'type' => 'text',
-				'label' => __('Offset by container:', 'motopress-slider-lite'),
-				'description' => __('The height will be decreased with the height of these elements. Enter CSS Selector.', 'motopress-slider-lite'),
-				'default' => '',
-				'dependency' => array(
-					'parameter' => 'full_height',
-					'value' => true,
-				)
-			),
-
-			'full_size_grid' => array(
-				'type' => 'checkbox',
-				'label' => '',
-				'description' => __('Enable this option to make grid stretch to parent container. Even if you select this option you still need to set Grid width and height to define slider size. If you check Force Full Width and/or Force Full Height options, the slider will be stretched to screen edges.', 'motopress-slider-lite'),
-				'label2' => __('Force Full Size Grid', 'motopress-slider-lite'),
-				'default' => false,
-//				'dependency' => array(
-//					'parameter' => 'full_height',
-//					'value' => true,
-//				)
-			),
 
 			'width' => array(
                 'type' => 'number',
-                'label' => __('Layers Grid Size', 'motopress-slider-lite'),
+                'label' => __('Slider size on Desktop (default)', 'motopress-slider-lite'),
                 'label2' => __('Width:', 'motopress-slider-lite'),
                 'description' => __('Initial width of the layers', 'motopress-slider-lite'),
 //                'pattern' => '/^(0|[1-9][0-9]*)$/',
-                'default' => 960,
+                'default' => 1170,
                 'min' => 0,
 //                'disabled' => false
             ),
@@ -238,7 +179,7 @@ $sliderSettings = array(
                 'label' => '',
                 'label2' => __('Height:', 'motopress-slider-lite'),
                 'description' => __('Initial height of the layers', 'motopress-slider-lite'),
-                'default' => 350,
+                'default' => 600,
                 'min' => 0,
 //                'disabled' => false
             ),
@@ -247,77 +188,7 @@ $sliderSettings = array(
                 'label2' => __('Min. Height:'),
                 'default' => 500
             ),*/
-            'enable_timer' => array(
-                'type' => 'checkbox',
-                'label' => '',
-                'label2' => __('Enable Slideshow', 'motopress-slider-lite'),
-                'default' => true,
-//                'disabled' => false
-            ),
-            'slider_delay' => array(
-                'type' => 'text',
-                'label' => __('Slideshow Delay:', 'motopress-slider-lite'),
-                'description' => __('The time one slide stays on the screen in milliseconds', 'motopress-slider-lite'),
-                'default' => 7000
-            ),
-            'slider_animation' => array(
-                'type' => 'select',
-                'label' => __('Slideshow Animation:', 'motopress-slider-lite'),
-                'default' => 'msSlide',
-                   'list' => array(
-                       'msSlide' => __('Slide', 'motopress-slider-lite'),
-                       'msSlideFade' => __('Fade', 'motopress-slider-lite'),
-                       'msSlideUpDown' => __('Slide Up', 'motopress-slider-lite'),
-                    ),
-                    //'description' => __('Select slideshow animation', 'motopress-slider-lite'),
-            ),
-            'slider_duration' => array(
-                'type' => 'text',
-                'label' => __('Slideshow Duration:', 'motopress-slider-lite'),
-                'description' => __('Animation duration in milliseconds', 'motopress-slider-lite'),
-                'default' => 2000
-            ),
-            'slider_easing' => array(
-                'type' => 'select',
-                'label' => __('Slideshow Easing:', 'motopress-slider-lite'),
-                'default' => 'easeOutCirc',
-                   'list' => array(
-                       'linear' => __('linear', 'motopress-slider-lite'),
-                       'ease' => __('ease', 'motopress-slider-lite'),
-                       'easeIn' => __('easeIn', 'motopress-slider-lite'),
-                       'easeOut' => __('easeOut', 'motopress-slider-lite'),
-                       'easeInOut' => __('easeInOut', 'motopress-slider-lite'),
-                       'easeInQuad' => __('easeInQuad', 'motopress-slider-lite'),
-                       'easeInCubic' => __('easeInCubic', 'motopress-slider-lite'),
-                       'easeInQuart' => __('easeInQuart', 'motopress-slider-lite'),
-                       'easeInQuint' => __('easeInQuint', 'motopress-slider-lite'),
-                       'easeInSine' => __('easeInSine', 'motopress-slider-lite'),
-                       'easeInExpo' => __('easeInExpo', 'motopress-slider-lite'),
-                       'easeInCirc' => __('easeInCirc', 'motopress-slider-lite'),
-                       'easeInBack' => __('easeInBack', 'motopress-slider-lite'),
-                       'easeOutQuad' => __('easeOutQuad', 'motopress-slider-lite'),
-                       'easeOutCubic' => __('easeOutCubic', 'motopress-slider-lite'),
-                       'easeOutQuart' => __('easeOutQuart', 'motopress-slider-lite'),
-                       'easeOutQuint' => __('easeOutQuint', 'motopress-slider-lite'),
-                       'easeOutSine' => __('easeOutSine', 'motopress-slider-lite'),
-                       'easeOutExpo' => __('easeOutExpo', 'motopress-slider-lite'),
-                       'easeOutCirc' => __('easeOutCirc', 'motopress-slider-lite'),
-                       'easeOutBack' => __('easeOutBack', 'motopress-slider-lite'),
-                       'easeInOutQuad' => __('easeInOutQuad', 'motopress-slider-lite'),
-                       'easeInOutCubic' => __('easeInOutCubic', 'motopress-slider-lite'),
-                       'easeInOutQuart' => __('easeInOutQuart', 'motopress-slider-lite'),
-                       'easeInOutQuint' => __('easeInOutQuint', 'motopress-slider-lite'),
-                       'easeInOutSine' => __('easeInOutSine', 'motopress-slider-lite'),
-                       'easeInOutExpo' => __('easeInOutExpo', 'motopress-slider-lite'),
-                       'easeInOutCirc' => __('easeInOutCirc', 'motopress-slider-lite'),
-                       'easeInOutBack' => __('easeInOutBack', 'motopress-slider-lite'),
-                   ),
-                'description' => __('<a href="https://jqueryui.com/easing/" target="_blank">Easing examples</a>', 'motopress-slider-lite'),
-//                'dependency' => array(
-//                    'parameter' => 'slider_animation',
-//                    'value' => 'msSlide'
-//                ),
-            ),
+
 //            'post_slider' => array(
 //                'type' => 'checkbox',
 //                'label' => '',
@@ -369,15 +240,237 @@ $sliderSettings = array(
 //                    'three' => 'Three',
 //                )
 //            ),
-            'start_slide' => array(
-                'type' => 'number',
-                'label' => __('Start with slide:', 'motopress-slider-lite'),
-                'description' => __('Slide index in the list of slides', 'motopress-slider-lite'),
-                'default' => 1,
-				'min' => 1
-            ),
+
         )
     ),
+
+	'size' => array(
+		'title' => __('Size', 'motopress-slider-lite'),
+		'icon' => null,
+		'description' => '',
+		'options' => array(
+			'full_width' => array(
+				'type' => 'checkbox',
+				'label' =>  __('Full Width', 'motopress-slider-lite'),
+				'label2' => __('Make this slider full-width / wide-screen', 'motopress-slider-lite'),
+				'default' => false
+			),
+			'full_height' => array(
+				'type' => 'checkbox',
+				'label' => __('Full Height', 'motopress-slider-lite'),
+				'label2' => __('Make this slider full-height', 'motopress-slider-lite'),
+				'default' => false,
+			),
+
+			'full_height_offset' => array(
+				'type' => 'number',
+				'label' => __('Full height increment:', 'motopress-slider-lite'),
+				'description' => __('Slider height will be increased or decreased to this value', 'motopress-slider-lite'),
+				'default' => '',
+				'dependency' => array(
+					'parameter' => 'full_height',
+					'value' => true,
+				)
+			),
+
+			'full_height_units' => array(
+				'type' => 'select',
+				'label' => __('Increment units:', 'motopress-slider-lite'),
+				'default' => 'px',
+				'list' => array(
+					'px' => __('Pixels (px)', 'motopress-slider-lite'),
+					'%' => __('Percents (%)', 'motopress-slider-lite'),
+				),
+				'dependency' => array(
+					'parameter' => 'full_height',
+					'value' => true,
+				)
+			),
+
+			'full_height_container' => array(
+				'type' => 'text',
+				'label' => __('Offset by container:', 'motopress-slider-lite'),
+				'description' => __('The height will be decreased with the height of these elements. Enter CSS Selector.', 'motopress-slider-lite'),
+				'default' => '',
+				'dependency' => array(
+					'parameter' => 'full_height',
+					'value' => true,
+				)
+			),
+
+			'full_size_grid' => array(
+				'type' => 'checkbox',
+				'label' => __('Full Size Grid', 'motopress-slider-lite'),
+				'description' => __('Even if you select this option you still need to set Grid width and height to define slider size. If you check Full Width and/or Full Height options, the slider will be stretched to screen edges.', 'motopress-slider-lite'),
+				'label2' => __('Make grid stretch to parent container', 'motopress-slider-lite'),
+				'default' => false,
+			),
+
+			'enable_notebook' => array(
+				'type' => 'checkbox',
+				'label' => __('Slider size on Laptop', 'motopress-slider-lite'),
+				'label2' =>  __('Configure layers size, position and styles manually for Laptop screen size. Initial Laptop dimensions:'),
+				'default' => false,
+				'layout' => 'notebook'
+			),
+			'notebook_width' => array(
+				'type' => 'number',
+				'label' => __('Width', 'motopress-slider-lite'),
+				'default' => 1024,
+				'min' => 0,
+				'dependency' => array(
+					'parameter' => 'enable_notebook',
+					'value' => true,
+				)
+			),
+			'notebook_height' => array(
+				'type' => 'number',
+				'label' => __('Height', 'motopress-slider-lite'),
+				'default' => 768,
+				'min' => 0,
+				'dependency' => array(
+					'parameter' => 'enable_notebook',
+					'value' => true,
+				)
+			),
+
+			'enable_tablet' => array(
+				'type' => 'checkbox',
+				'label' => __('Slider size on Tablet', 'motopress-slider-lite'),
+				'label2' =>  __('Configure layers size, position and styles manually for Tablet screen size. Initial Tablet dimensions:'),
+				'default' => false,
+				'layout' => 'tablet'
+			),
+			'tablet_width' => array(
+				'type' => 'number',
+				'label' => __('Width', 'motopress-slider-lite'),
+				'default' => 778,
+				'min' => 0,
+				'dependency' => array(
+					'parameter' => 'enable_tablet',
+					'value' => true,
+				)
+			),
+			'tablet_height' => array(
+				'type' => 'number',
+				'label' => __('Height', 'motopress-slider-lite'),
+				'default' => 960,
+				'min' => 0,
+				'dependency' => array(
+					'parameter' => 'enable_tablet',
+					'value' => true,
+				)
+			),
+
+			'enable_mobile' => array(
+				'type' => 'checkbox',
+				'label' => __('Slider size on Mobile', 'motopress-slider-lite'),
+				'label2' =>  __('Configure layers size, position and styles manually for Mobile screen size. Initial Mobile dimensions:'),
+				'default' => false,
+				'layout' => 'mobile'
+			),
+			'mobile_width' => array(
+				'type' => 'number',
+				'label' => __('Width', 'motopress-slider-lite'),
+				'default' => 480,
+				'min' => 0,
+				'dependency' => array(
+					'parameter' => 'enable_mobile',
+					'value' => true,
+				)
+			),
+			'mobile_height' => array(
+				'type' => 'number',
+				'label' => __('Height', 'motopress-slider-lite'),
+				'default' => 720,
+				'min' => 0,
+				'dependency' => array(
+					'parameter' => 'enable_mobile',
+					'value' => true,
+				)
+			),
+		),
+	),
+	'slideshow' => array(
+		'title' => __('Slideshow', 'motopress-slider-lite'),
+		'icon' => null,
+		'description' => '',
+		'options' => array(
+			'enable_timer' => array(
+                'type' => 'checkbox',
+                'label' => __('Slideshow', 'motopress-slider-lite'),
+                'label2' => __('Enable Slideshow', 'motopress-slider-lite'),
+                'default' => true,
+//                'disabled' => false
+            ),
+			'slider_delay' => array(
+				'type' => 'text',
+				'label' => __('Slideshow Delay:', 'motopress-slider-lite'),
+				'description' => __('The time one slide stays on the screen in milliseconds', 'motopress-slider-lite'),
+				'default' => 7000
+			),
+			'slider_animation' => array(
+				'type' => 'select',
+				'label' => __('Slideshow Animation:', 'motopress-slider-lite'),
+				'default' => 'msSlide',
+				'list' => array(
+					'msSlide' => __('Slide', 'motopress-slider-lite'),
+					'msSlideFade' => __('Fade', 'motopress-slider-lite'),
+					'msSlideUpDown' => __('Slide Up', 'motopress-slider-lite'),
+				),
+				//'description' => __('Select slideshow animation', 'motopress-slider-lite'),
+			),
+			'slider_duration' => array(
+				'type' => 'text',
+				'label' => __('Animation Duration:', 'motopress-slider-lite'),
+				'description' => __('Animation duration in milliseconds', 'motopress-slider-lite'),
+				'default' => 2000
+			),
+			'slider_easing' => array(
+				'type' => 'select',
+				'label' => __('Animation Easing:', 'motopress-slider-lite'),
+				'default' => 'easeOutCirc',
+				'list' => array(
+					'linear' => __('linear', 'motopress-slider-lite'),
+					'ease' => __('ease', 'motopress-slider-lite'),
+					'easeIn' => __('easeIn', 'motopress-slider-lite'),
+					'easeOut' => __('easeOut', 'motopress-slider-lite'),
+					'easeInOut' => __('easeInOut', 'motopress-slider-lite'),
+					'easeInQuad' => __('easeInQuad', 'motopress-slider-lite'),
+					'easeInCubic' => __('easeInCubic', 'motopress-slider-lite'),
+					'easeInQuart' => __('easeInQuart', 'motopress-slider-lite'),
+					'easeInQuint' => __('easeInQuint', 'motopress-slider-lite'),
+					'easeInSine' => __('easeInSine', 'motopress-slider-lite'),
+					'easeInExpo' => __('easeInExpo', 'motopress-slider-lite'),
+					'easeInCirc' => __('easeInCirc', 'motopress-slider-lite'),
+					'easeInBack' => __('easeInBack', 'motopress-slider-lite'),
+					'easeOutQuad' => __('easeOutQuad', 'motopress-slider-lite'),
+					'easeOutCubic' => __('easeOutCubic', 'motopress-slider-lite'),
+					'easeOutQuart' => __('easeOutQuart', 'motopress-slider-lite'),
+					'easeOutQuint' => __('easeOutQuint', 'motopress-slider-lite'),
+					'easeOutSine' => __('easeOutSine', 'motopress-slider-lite'),
+					'easeOutExpo' => __('easeOutExpo', 'motopress-slider-lite'),
+					'easeOutCirc' => __('easeOutCirc', 'motopress-slider-lite'),
+					'easeOutBack' => __('easeOutBack', 'motopress-slider-lite'),
+					'easeInOutQuad' => __('easeInOutQuad', 'motopress-slider-lite'),
+					'easeInOutCubic' => __('easeInOutCubic', 'motopress-slider-lite'),
+					'easeInOutQuart' => __('easeInOutQuart', 'motopress-slider-lite'),
+					'easeInOutQuint' => __('easeInOutQuint', 'motopress-slider-lite'),
+					'easeInOutSine' => __('easeInOutSine', 'motopress-slider-lite'),
+					'easeInOutExpo' => __('easeInOutExpo', 'motopress-slider-lite'),
+					'easeInOutCirc' => __('easeInOutCirc', 'motopress-slider-lite'),
+					'easeInOutBack' => __('easeInOutBack', 'motopress-slider-lite'),
+				),
+				'description' => __('<a href="https://jqueryui.com/easing/" target="_blank">Easing examples</a>', 'motopress-slider-lite'),
+//                'dependency' => array(
+//                    'parameter' => 'slider_animation',
+//                    'value' => 'msSlide'
+//                ),
+			),
+		)
+	),
+
+
 
     'controls' => array(
         'title' => __('Controls', 'motopress-slider-lite'),
@@ -447,6 +540,13 @@ $sliderSettings = array(
         'icon' => null,
         'description' => '',
         'options' => array(
+			'start_slide' => array(
+				'type' => 'number',
+				'label' => __('Start with slide:', 'motopress-slider-lite'),
+				'description' => __('Slide index in the list of slides', 'motopress-slider-lite'),
+				'default' => 1,
+				'min' => 1
+			),
             'visible_from' => array(
                 'type' => 'number',
                 'label' => __('Visible', 'motopress-slider-lite'),
@@ -491,20 +591,20 @@ $sliderSettings = array(
             'delay_init' => array(
                 'type' => 'text',
                 'label' => __('Initialization delay:', 'motopress-slider-lite'),
-                //'description' => __('Type slider init delay', 'motopress-slider-lite'),
+                'description' => __('Time in milliseconds before slider starts loading', 'motopress-slider-lite'),
                 'default' => 0
             ),
 
             'scroll_init' => array(
                 'type' => 'checkbox',
                 'label' => '',
-                'label2' => __('Initialize slider on scroll', 'motopress-slider-lite'),
+                'label2' => __('Display slider when it becomes visible on page (initialize slider on scroll)', 'motopress-slider-lite'),
                 //'description' => __('Enable this option to init slider on scroll', 'motopress-slider-lite'),
                 'default' => false
             ),
             'custom_class' => array(
                 'type' => 'text',
-                'label' => __('Slider custom class name', 'motopress-slider-lite'),
+                'label' => __('Custom CSS class', 'motopress-slider-lite'),
                 'default' => ''
             ),
             'custom_styles' => array(

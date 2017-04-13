@@ -14,6 +14,11 @@ class MPSLShortcode {
     private $linkSlideToPost = false;
     private $emPrivatePresets = array();
     private $layerPresets = null;
+    private $isMultipleLayout = false;
+	/**
+	 * @var array {[layout_name] => enabled_flag, ...}
+	 */
+    private $sliderLayouts = array();
 
     public function __construct($sliderOptions, $editmode) {
         $this->setSliderOptions($sliderOptions);
@@ -34,6 +39,15 @@ class MPSLShortcode {
 
     private function setSliderOptions($sliderOptions) {
         $this->sliderOptions = $sliderOptions;
+
+	    // Multiple layout flag
+	    $this->sliderLayouts[MPSLLayout::DEFAULT_LAYOUT] = true;
+        foreach (array_diff(MPSLLayout::$LAYOUTS, array(MPSLLayout::DEFAULT_LAYOUT)) as $layout) {
+	        $this->sliderLayouts[$layout] = $sliderOptions['options']["enable_{$layout}"];
+	        if ($this->sliderLayouts[$layout]) {
+		        $this->isMultipleLayout = true;
+	        }
+        }
     }
 
 
@@ -78,7 +92,11 @@ class MPSLShortcode {
 
 
     private function getSettings() {
-        $timer = ($this->sliderOptions['options']['enable_timer'] and !MPSLSharing::$isMPCEEditor);
+	    $isMPCE = MPSLSharing::isMPCE();
+
+        $timer = ($this->sliderOptions['options']['enable_timer'] && !$isMPCE);
+        $delayInit = ($this->sliderOptions['options']['delay_init'] && !$isMPCE) ? $this->sliderOptions['options']['delay_init'] : 0;
+	    $scrollInit = ($this->sliderOptions['options']['scroll_init'] && !$isMPCE) ? 'true' : 'false';
 
         if ($this->sliderType === 'custom') {
             $timer = $timer && count($this->sliderOptions['slides']) > 1;
@@ -102,8 +120,8 @@ class MPSLShortcode {
             'data-hover-timer' => ($this->sliderOptions['options']['hover_timer']) ? 'true' : 'false',
             'data-counter' => ($this->sliderOptions['options']['counter'] and !$this->editmode) ? 'true' : 'false',
             'data-slider-layout' => 'auto',
-            'data-grid-width' => $this->sliderOptions['options']['width'],
-            'data-grid-height' => $this->sliderOptions['options']['height'],
+//            'data-grid-width' => $this->sliderOptions['options']['width'],
+//            'data-grid-height' => $this->sliderOptions['options']['height'],
             'data-timer-reverse' => ($this->sliderOptions['options']['timer_reverse']) ? 'true' : 'false',
             'data-arrows-show' => ($this->sliderOptions['options']['arrows_show']) ? 'true' : 'false',
             'data-thumbnails-show' => ($this->sliderOptions['options']['thumbnails_show']) ? 'true' : 'false',
@@ -111,8 +129,8 @@ class MPSLShortcode {
             'data-slideshow-ppb-show' => ($this->sliderOptions['options']['slideshow_ppb_show']) ? 'true' : 'false',
             'data-controls-hide-on-leave' => ($this->sliderOptions['options']['controls_hide_on_leave']) ? 'true' : 'false',
             'data-swipe' => ($this->sliderOptions['options']['swipe']) ? 'true' : 'false',
-            'data-delay-init' => ($this->sliderOptions['options']['delay_init']) ? $this->sliderOptions['options']['delay_init'] : 0,
-            'data-scroll-init' => ($this->sliderOptions['options']['scroll_init']) ? 'true' : 'false',
+            'data-delay-init' => $delayInit,
+            'data-scroll-init' => $scrollInit,
 //            'data-start-slide' => ($this->sliderOptions['options']['start_slide']) ? $this->sliderOptions['options']['start_slide'] : 1,
         );
 
@@ -123,13 +141,26 @@ class MPSLShortcode {
         }
 
 
-
-
-
-        if (!MPSLSharing::$isMPCEEditor) {
+        if (!MPSLSharing::isMPCE()) {
             $result['data-visible-from'] = $this->sliderOptions['options']['visible_from'];
             $result['data-visible-till'] = $this->sliderOptions['options']['visible_till'];
         }
+
+        if ($this->sliderOptions['options']['width'] && $this->sliderOptions['options']['height']) {
+            $result['data-layout-desktop-width'] = $this->sliderOptions['options']['width'];
+            $result['data-layout-desktop-height'] = $this->sliderOptions['options']['height'];
+        }
+
+	    // Add layout data
+        $enabledLayouts = array(MPSLLayout::DEFAULT_LAYOUT => 'true'); // Desktop always TRUE
+        foreach (array_diff(MPSLLayout::$LAYOUTS, array(MPSLLayout::DEFAULT_LAYOUT)) as $layout) {
+            $result["data-layout-{$layout}-width"] = $this->sliderOptions['options']["{$layout}_width"];
+            $result["data-layout-{$layout}-height"] = $this->sliderOptions['options']["{$layout}_height"];
+	        $enabledLayouts[$layout] = $this->sliderOptions['options']["enable_{$layout}"] ? 'true' : 'false';
+        }
+//        $result['data-layout'] = $this->toLayoutString($enabledLayouts);
+	    $result['data-layout'] = implode(';', $enabledLayouts);
+	    // End add layout data
 
         $result['data-custom-class'] = trim($this->sliderOptions['options']['custom_class']);
 
@@ -162,7 +193,7 @@ class MPSLShortcode {
                 $result[$count]['layers'][$countL] = $this->getLayer($layer);
 
                 if ($layer['end'] !== '0') {
-                    $result[$count]['layers'][$countL]['attrs']['data-leave-delay'] = !MPSLSharing::$isMPCEEditor ? $layer['end'] : '0';
+                    $result[$count]['layers'][$countL]['attrs']['data-leave-delay'] = !MPSLSharing::isMPCE() ? $layer['end'] : '0';
                 }
 
                 //TODO: add styles to layers
@@ -174,8 +205,12 @@ class MPSLShortcode {
 			            $result[$count]['layers'][$countL]['content'] = do_shortcode($result[$count]['layers'][$countL]['content']);
 		            }
 
-		            if (isset($layer['white-space']) && $layer['white-space']) {
-			            $result[$count]['layers'][$countL]['attrs']['data-white-space'] = $layer['white-space'];
+		            /** @todo Test */
+		            if (
+			            isset($layer['white-space'])
+			            /*&& ($whiteSpace = $this->toLayoutString($layer['white-space']))*/
+		            ) {
+			            $result[$count]['layers'][$countL]['attrs']['data-white-space'] = $this->toLayoutString($layer['white-space']);
 		            }
 	            }
 
@@ -313,7 +348,7 @@ class MPSLShortcode {
                 'data-fillmode' => $slide['options']['bg_video_fillmode'],
                 'data-cover' => $slide['options']['bg_video_cover'] ? 'true' : 'false',
                 'data-cover-type' => $slide['options']['bg_video_cover_type'],
-                'data-autoplay' => !MPSLSharing::$isMPCEEditor ? 'true' : 'false',
+                'data-autoplay' => !MPSLSharing::isMPCE() ? 'true' : 'false',
             );
         }
         return $result;
@@ -321,22 +356,25 @@ class MPSLShortcode {
 
 
     private function getLayer($layer) {
+	    $result = array();
+
         switch ($layer['type']) {
             case 'html' :
-                return $this->getHtmlLayer($layer);
+                $result = $this->getHtmlLayer($layer);
                 break;
             case 'image' :
-                return $this->getImageLayer($layer);
+                $result = $this->getImageLayer($layer);
                 break;
             case 'button' :
-                return $this->getButtonLayer($layer);
+                $result = $this->getButtonLayer($layer);
                 break;
             case 'video' :
-                return $this->getVideoLayer($layer);
+                $result = $this->getVideoLayer($layer);
                 break;
-            default:
-                break;
+            default: break;
         }
+
+	    return $result;
     }
 
     private function getLayerPreset($layer) {
@@ -351,9 +389,9 @@ class MPSLShortcode {
                 $layerPreset = $layer['preset'];
             }
         }
+
         return MPSLLayerPresetOptions::LAYER_CLASS . ' ' . $layerPreset;
     }
-
 
     private function getHtmlLayer($layer) {
         $result = array(
@@ -364,8 +402,9 @@ class MPSLShortcode {
 
         $result['attrs'] = $this->getAttrs($layer);
 
+	    /** @todo Fix 'html_width' ## !empty($layer['html_width']) ##   (and maybe other layout options) */
 	    if (isset($layer['html_width']) && !empty($layer['html_width'])) {
-		    $result['attrs']['data-width'] = $layer['html_width'];
+		    $result['attrs']['data-width'] = $this->toLayoutString($layer['html_width']);
 	    }
 
         return $result;
@@ -377,7 +416,7 @@ class MPSLShortcode {
         $result = array(
             'type' => 'image',
             'attrs' => array(
-                'data-width' => $layer['width'],
+                'data-width' => $this->toLayoutString($layer['width']),
                 'data-link' => $layer['image_link'],
                 'data-target' => (isset($layer['image_target']) && $layer['image_target'] === true) ? '_blank' : '_self'
             ),
@@ -530,25 +569,43 @@ class MPSLShortcode {
 
     }
 
+    private function getLayoutStyleAttrs($layer) {
+	    $res = array();
+	    foreach (MPSLLayout::$STYLE_OPTIONS as $name) {
+		    $res["data-{$name}"] = $this->toLayoutString($layer[$name]);
+	    }
+
+	    return $res;
+    }
 
     private function getAttrs($layer) {
-
-        return array(
+	    $result = array(
             'data-type' => $layer['type'],
-            'data-align-horizontal' => $layer['hor_align'],
-            'data-align-vertical' => $layer['vert_align'],
-            'data-offset-x' => $layer['offset_x'],
-            'data-offset-y' => $layer['offset_y'],
+            'data-align-horizontal' => $this->toLayoutString($layer['hor_align']),
+            'data-align-vertical' => $this->toLayoutString($layer['vert_align']),
+            'data-offset-x' => $this->toLayoutString($layer['offset_x']),
+            'data-offset-y' => $this->toLayoutString($layer['offset_y']),
             'data-animation' => $layer['start_animation'],
             'data-timing-function' => $layer['start_timing_function'],
             'data-duration' => $layer['start_duration'],
             'data-leave-animation' => $layer['end_animation'],
             'data-leave-timing-function' => $layer['end_timing_function'],
             'data-leave-duration' => $layer['end_duration'],
-            'data-delay' => !MPSLSharing::$isMPCEEditor ? $layer['start'] : '0',
+            'data-delay' => !MPSLSharing::isMPCE() ? $layer['start'] : '0',
+            'data-resizable' => $layer['resizable'],
+            'data-dont-change-position' => $layer['dont_change_position'],
+            'data-hide-width' => $layer['hide_width'],
 
+		    // Hover styles
+//		    'data-hover-styles' => htmlspecialchars(json_encode((object) $layer['hover_styles']), ENT_QUOTES, 'UTF-8'),
+
+//            // TODO: Test
+//            'data-white-space' => "normal",
         );
 
+	    $result = array_merge($result, $this->getLayoutStyleAttrs($layer));
+
+	    return $result;
     }
 
 
@@ -556,14 +613,14 @@ class MPSLShortcode {
         $result = array();
 
         if ($layer['video_width'] !== '') {
-            $result['data-width'] = $layer['video_width'];
+            $result['data-width'] = $this->toLayoutString($layer['video_width']);
         }
 
         if ($layer['video_height'] !== '') {
-            $result['data-height'] = $layer['video_height'];
+            $result['data-height'] = $this->toLayoutString($layer['video_height']);
         }
 //        $result['data-poster'] = $layer['video_preview_image'];
-        $result['data-autoplay'] = ($layer['video_autoplay'] && !MPSLSharing::$isMPCEEditor) ? 'true' : 'false';
+        $result['data-autoplay'] = ($layer['video_autoplay'] && !MPSLSharing::isMPCE()) ? 'true' : 'false';
         $result['data-loop'] = $layer['video_loop'] ? 'true' : 'false';
         $result['data-mute'] = $layer['video_mute'] ? 'true' : 'false';
         $result['data-disable-mobile'] = $layer['video_disable_mobile'] ? 'true' : 'false';
@@ -596,14 +653,23 @@ class MPSLShortcode {
         $fontsUrl = array();
 
         foreach ($this->sliderFonts as $fontName => &$fontData) {
-            $fontData['variants'] = array_unique($fontData['variants']); // Unique variants
+	        if ($this->editmode) {
+		        $fontAttrs = MPSLLayerPresetOptions::getFontByName($fontName);
+		        if (!is_null($fontAttrs)) {
+					$fontData['variants'] = $fontAttrs['variants'];
+		        }
+	        }
 
-            $fontsUrlPart = $fontName;
+	        // Unique variants
+	        $fontData['variants'] = array_unique($fontData['variants']);
+
+	        $fontsUrlPart = $fontName;
             if (count($fontData['variants'])) {
                 $fontsUrlPart .= ':' . implode(',', $fontData['variants']);
             }
             $fontsUrl[] = urlencode($fontsUrlPart);
         }
+
         if (count($fontsUrl)) {
             $fontsUrl = sprintf('//fonts.googleapis.com/css?family=%s', implode('|', $fontsUrl));
         } else {
@@ -844,8 +910,12 @@ class MPSLShortcode {
 		            $arr[$count]['content'] = do_shortcode(str_replace($inputArr, $outputArr, $arr[$count]['content']));
 	            }
 
-	            if (isset($layer['white-space']) && $layer['white-space']) {
-		            $arr[$count]['attrs']['data-white-space'] = $layer['white-space'];
+	            /** @todo Test */
+	            if (
+		            isset($layer['white-space'])
+//		            && ($whiteSpace = $this->toLayoutString($layer['white-space']))
+	            ) {
+		            $arr[$count]['attrs']['data-white-space'] = $this->toLayoutString($layer['white-space']);
 	            }
 
             } else if ($arr[$count]['type'] === 'button' || $arr[$count]['type'] === 'image') {
@@ -853,7 +923,7 @@ class MPSLShortcode {
             }
 
             if ($layer['end'] !== '0') {
-                $arr[$count]['attrs']['data-leave-delay'] = !MPSLSharing::$isMPCEEditor ? $layer['end'] : '0';
+                $arr[$count]['attrs']['data-leave-delay'] = !MPSLSharing::isMPCE() ? $layer['end'] : '0';
             }
 
             $style = isset($arr[$count]['style']) ? $arr[$count]['style'] : '';
@@ -895,13 +965,55 @@ class MPSLShortcode {
         return get_the_author_meta('display_name', (int) $post->post_author);
     }
 
-    private function getWooCommerceTaxonomies($product, $type) {
-        $cats =   wp_get_post_terms( $product->id, $type, array( 'fields' => 'names' ) );
-        return !empty($cats) ? implode(',', $cats) : '';
-    }
+	private function getWooCommerceTaxonomies($product, $type) {
+		$cats = wp_get_post_terms($product->id, $type, array('fields' => 'names'));
+		return !empty($cats) ? implode(',', $cats) : '';
+	}
 
 	public function getPrivatePresets() {
 		return $this->emPrivatePresets;
+	}
+
+	/**
+	 * Convert to layout format string
+	 * @param array $value Layout option value
+	 * @return string
+	 */
+	private function toLayoutString($value) {
+		$res = $value;
+
+		if (is_array($value)) {
+			if ($this->isMultipleLayout || true) {
+				$extendedValue = array();
+				$prevValue = $value[MPSLLayout::DEFAULT_LAYOUT];
+
+				/** @todo Use only enabled layouts */
+				foreach (MPSLLayout::$LAYOUTS as $layout)
+				{
+					$layoutEnabled = $this->sliderLayouts[$layout];
+
+					if (
+						$layoutEnabled
+						&& array_key_exists($layout, $value)
+						&& !is_null($value[$layout])
+//						&& !empty($value[$layout])
+					) {
+						$extendedValue[$layout] = $value[$layout];
+					} else {
+						$extendedValue[$layout] = $prevValue;
+					}
+
+					$prevValue = $extendedValue[$layout];   // Save previous value
+				}
+
+				$res = implode(';', $extendedValue);
+
+			} else {
+				$res = $value[MPSLLayout::DEFAULT_LAYOUT];
+			}
+		}
+
+		return $res;
 	}
 
 }

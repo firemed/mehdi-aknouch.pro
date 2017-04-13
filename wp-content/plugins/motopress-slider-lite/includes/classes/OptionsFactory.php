@@ -5,6 +5,7 @@ class MPSLOptionsFactory {
     static $inited = false;
     static $prefix;
     static $altPrefix;
+    private static $printValue = true;
 
     public function  __construct() {
         self::$inited = true;
@@ -13,6 +14,14 @@ class MPSLOptionsFactory {
         self::$prefix = $mpsl_settings['prefix'];
         self::$altPrefix = $mpsl_settings['alt_prefix'];
     }
+
+	static function configPrintValue($printValue = true) {
+		self::$printValue = $printValue;
+	}
+
+	static function resetPrintValue() {
+		self::$printValue = true;
+	}
 
     static function createControl(&$option, $parent = '', $type = 'default') {
         ?>
@@ -50,6 +59,7 @@ class MPSLOptionsFactory {
             case 'tiny_mce' : self::addLabel2($option); self::addTinyMCE($option); break;
             case 'animation_control': self::addAnimationControl($option); break;
             case 'pretty_select': self::addPrettySelectControl($option); break;
+            case 'weight_clone_select': self::addSelect($option); break;
         }
             self::addDescription($option);
         ?>
@@ -101,7 +111,7 @@ class MPSLOptionsFactory {
         $required = isset($option['required']) && $option['required'] ? ' required="required"' : '';
         $readonly = isset($option['readonly']) && $option['readonly'] ? ' readonly="readonly"' : '';
     ?>
-        <input type="text" id="<?php echo self::$prefix.$option['name']; ?>" name="<?php echo self::$prefix.$option['name']; ?>" value="<?php echo $option['value']; ?>" <?php echo $disabled . $required . $readonly; ?> />
+        <input type="text" id="<?php echo self::$prefix.$option['name']; ?>" name="<?php echo self::$prefix.$option['name']; ?>" value="<?php if (self::$printValue) echo $option['value']; ?>" <?php echo $disabled . $required . $readonly; ?> />
         <?php if (isset($option['unit']) && $option['unit']) { ?>
             <span class="mpsl-option-unit"><?php echo $option['unit']; ?></span><br/>
         <?php } ?>
@@ -111,7 +121,7 @@ class MPSLOptionsFactory {
     static function addHidden(&$option) {
         $disabled = isset($option['disabled']) && $option['disabled'] ? ' disabled="disabled"' : '';
         ?>
-        <input type="hidden" id="<?php echo self::$prefix.$option['name']; ?>" name="<?php echo self::$prefix.$option['name']; ?>" value="<?php echo $option['value']; ?>" <?php echo $disabled; ?>>
+        <input type="hidden" id="<?php echo self::$prefix.$option['name']; ?>" name="<?php echo self::$prefix.$option['name']; ?>" value="<?php if (self::$printValue) echo $option['value']; ?>" <?php echo $disabled; ?>>
         <?php
     }
 
@@ -123,7 +133,7 @@ class MPSLOptionsFactory {
         $cols = (isset($option['cols']) && is_numeric($option['cols']) && $option['cols']) ? ' cols="' . $option['cols'] . '"' : '';
         $areaSize = isset($option['area_size']) && $option['area_size'] ? $option['area_size'] . '-text' : '';
         ?>
-        <textarea id="<?php echo self::$prefix.$option['name']; ?>" name="<?php echo self::$prefix . $option['name'] ?>" <?php echo $rows . $cols . $disabled . $required . $readonly; ?> class="<?php echo $areaSize; ?>"><?php echo $option['value']; ?></textarea>
+        <textarea id="<?php echo self::$prefix.$option['name']; ?>" name="<?php echo self::$prefix . $option['name'] ?>" <?php echo $rows . $cols . $disabled . $required . $readonly; ?> class="<?php echo $areaSize; ?>"><?php if (self::$printValue) echo $option['value']; ?></textarea>
         <?php
     }
 
@@ -144,6 +154,8 @@ class MPSLOptionsFactory {
         );
 
 //        echo '<input type="hidden" name="mpsl_tinymce_mode" value="' . wp_default_editor() . '">';
+
+	    $content = self::$printValue ? $option['value'] : '';
         wp_editor($option['value'], self::$altPrefix . $option['name'], $settings);
     }
 
@@ -152,7 +164,7 @@ class MPSLOptionsFactory {
         $required = isset($option['required']) && $option['required'] ? ' required="required"' : '';
         $readonly = isset($option['readonly']) && $option['readonly'] ? ' readonly="readonly"' : '';
         ?>
-        <textarea id="<?php echo self::$prefix.$option['name']; ?>" name="<?php echo self::$prefix . $option['name'] ?>" <?php echo $disabled . $required . $readonly; ?> ><?php echo $option['value']; ?></textarea>
+        <textarea id="<?php echo self::$prefix.$option['name']; ?>" name="<?php echo self::$prefix . $option['name'] ?>" <?php echo $disabled . $required . $readonly; ?> ><?php if (self::$printValue) echo $option['value']; ?></textarea>
         <?php
     }
 
@@ -201,7 +213,7 @@ class MPSLOptionsFactory {
                         }
                     }
                     ?>
-                    <option value="<?php echo $key; ?>" <?php echo $attrs . ' ' . $selected; ?>><?php echo $value['label']; ?></option>
+                    <option value="<?php echo $value['value']; ?>" <?php echo $attrs . ' ' . $selected; ?>><?php echo $value['label']; ?></option>
                 <?php } else { ?>
                     <option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $value; ?></option>
                 <?php }
@@ -322,32 +334,37 @@ class MPSLOptionsFactory {
 
     static function addAlignTable(&$option) {
     ?>
-        <table class="mpsl-align-table">
-            <tbody>
-                <tr>
-                    <td><a href="javascript:void(0)" data-hor="left" data-vert="top"></a></td>
-                    <td><a href="javascript:void(0)" data-hor="center" data-vert="top"></a></td>
-                    <td><a href="javascript:void(0)" data-hor="right" data-vert="top"></a></td>
-                </tr>
-                <tr>
-                    <td><a href="javascript:void(0)" data-hor="left" data-vert="middle"></a></td>
-                    <td><a href="javascript:void(0)" data-hor="center" data-vert="middle"></a></td>
-                    <td><a href="javascript:void(0)" data-hor="right" data-vert="middle"></a></td>
-                </tr>
-                <tr>
-                    <td><a href="javascript:void(0)" data-hor="left" data-vert="bottom"></a></td>
-                    <td><a href="javascript:void(0)" data-hor="center" data-vert="bottom"></a></td>
-                    <td><a href="javascript:void(0)" data-hor="right" data-vert="bottom"></a></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <?php
-            self::addControl($option['options']['hor_align'], $option['name']);
-            self::addControl($option['options']['vert_align'], $option['name']);
+	    <div class="col-6-12">
+	        <table class="mpsl-align-table">
+	            <tbody>
+	                <tr>
+	                    <td><a href="javascript:void(0)" data-hor="left" data-vert="top"></a></td>
+	                    <td><a href="javascript:void(0)" data-hor="center" data-vert="top"></a></td>
+	                    <td><a href="javascript:void(0)" data-hor="right" data-vert="top"></a></td>
+	                </tr>
+	                <tr>
+	                    <td><a href="javascript:void(0)" data-hor="left" data-vert="middle"></a></td>
+	                    <td><a href="javascript:void(0)" data-hor="center" data-vert="middle"></a></td>
+	                    <td><a href="javascript:void(0)" data-hor="right" data-vert="middle"></a></td>
+	                </tr>
+	                <tr>
+	                    <td><a href="javascript:void(0)" data-hor="left" data-vert="bottom"></a></td>
+	                    <td><a href="javascript:void(0)" data-hor="center" data-vert="bottom"></a></td>
+	                    <td><a href="javascript:void(0)" data-hor="right" data-vert="bottom"></a></td>
+	                </tr>
+	            </tbody>
+	        </table>
+	        <?php
+	        self::addControl($option['options']['hor_align'], $option['name']);
+	        self::addControl($option['options']['vert_align'], $option['name']);
+		    ?>
+	    </div>
+	    <div class="col-6-12">
+		    <?php
             self::addControl($option['options']['offset_x'], $option['name']);
             self::addControl($option['options']['offset_y'], $option['name']);
-        ?>
+	        ?>
+        </div>
     <?php
     }
 
@@ -398,9 +415,11 @@ class MPSLOptionsFactory {
 			<optgroup label="<?php _e('Custom', 'motopress-slider-lite'); ?>" class="mpsl-layer-style-list-group-custom"></optgroup>
 			<optgroup label="<?php _e('Default', 'motopress-slider-lite'); ?>" class="mpsl-layer-style-list-group-default"></optgroup>
 	    </select>
-        <button class="button mpsl-edit-layer-style dashicons-before dashicons-admin-appearance" <?php echo $editBtnDisabled . $required . $readonly; ?>><?php echo $option['edit_label'] ?></button>
-        <a class="button-link mpsl-remove-layer-style" <?php echo $removeBtnDisabled . $required . $readonly; ?>><?php echo $option['remove_label'] ?></a>
-	    <input type="hidden" class="mpsl-layer-style-value " id="<?php echo self::$prefix.$option['name'] ?>" name="<?php echo self::$prefix . $option['name']; ?>" value="<?php echo $option['value']; ?>" disabled="disabled" />
+	    <div class="mpsl-layer-style-controls-wrapper">
+	        <button class="button mpsl-edit-layer-style dashicons-before dashicons-admin-appearance" <?php echo $editBtnDisabled . $required . $readonly; ?>><?php echo $option['edit_label'] ?></button>
+	        <a class="button-link mpsl-remove-layer-style" <?php echo $removeBtnDisabled . $required . $readonly; ?>><?php echo $option['remove_label'] ?></a>
+        </div>
+	    <input type="hidden" class="mpsl-layer-style-value " id="<?php echo self::$prefix.$option['name'] ?>" name="<?php echo self::$prefix . $option['name']; ?>" value="<?php if (self::$printValue) echo $option['value']; ?>" disabled="disabled" />
         <?php
     }
 
@@ -453,7 +472,7 @@ class MPSLOptionsFactory {
     }
 
     static function addMultiple(&$option) {
-	    ?><textarea id="<?php echo self::$prefix.$option['name'] ?>" name="<?php echo self::$prefix . $option['name']; ?>"><?php echo is_string($option['value']) ? $option['value'] : json_encode($option['value']); ?></textarea><?php
+	    ?><textarea id="<?php echo self::$prefix.$option['name'] ?>" name="<?php echo self::$prefix . $option['name']; ?>"><?php if (self::$printValue) echo is_string($option['value']) ? $option['value'] : json_encode($option['value']); ?></textarea><?php
     }
 
 	static function addColorPicker(&$option) {
@@ -461,7 +480,7 @@ class MPSLOptionsFactory {
         $required = isset($option['required']) && $option['required'] ? ' required="required"' : '';
         $readonly = isset($option['readonly']) && $option['readonly'] ? ' readonly="readonly"' : '';
         ?>
-	    <input type="text" class="mpsl-color-picker" value="<?php echo $option['value']; ?>" id="<?php echo self::$prefix.$option['name'] ?>" name="<?php echo self::$prefix . $option['name']; ?>" <?php echo $disabled . $required . $readonly; ?> />
+	    <input type="text" class="mpsl-color-picker" value="<?php if (self::$printValue) echo $option['value']; ?>" id="<?php echo self::$prefix.$option['name'] ?>" name="<?php echo self::$prefix . $option['name']; ?>" <?php echo $disabled . $required . $readonly; ?> />
         <?php
     }
 
