@@ -44,4 +44,4 @@ global $ct_options;
 
 <script  src="/wp-content/themes/mehdipro/js/original_theme/main.js"></script>
 
-<script  src="/wp-content/themes/mehdipro/map/js/map.js"></script>
+<script  src="/wp-content/themes/mehdipro/MAP/js/map.js"></script>
