@@ -1,0 +1,1453 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Pro Real Estate 3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-26 18:30-0800\n"
+"PO-Revision-Date: 2014-06-26 18:30-0800\n"
+"Last-Translator: Chris Robinson <chris@contempographicdesign.com>\n"
+"Language-Team: Contempo <chris@contempographicdesign.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: comments.php:13
+msgid "This post is password protected. Enter the password to view comments."
+msgstr ""
+
+#: comments.php:27
+msgid "No Responses"
+msgstr ""
+
+#: comments.php:27
+msgid "1 Comment"
+msgstr ""
+
+#: comments.php:27
+msgid "% Comments"
+msgstr ""
+
+#: comments.php:35
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:36
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:44
+msgid "Comments are closed, but"
+msgstr ""
+
+#: comments.php:44
+msgid "Trackback URL for this post"
+msgstr ""
+
+#: comments.php:44
+msgid "trackbacks"
+msgstr ""
+
+#: comments.php:44
+msgid "and pingbacks are open."
+msgstr ""
+
+#: comments.php:48
+msgid "Comments are closed."
+msgstr ""
+
+#: content.php:54
+#: content.php:105
+msgid "By"
+msgstr ""
+
+#: content.php:54
+#: content.php:105
+msgid "in"
+msgstr ""
+
+#: content.php:56
+#: content.php:105
+msgid "with"
+msgstr ""
+
+#: content.php:122
+msgid "Read More"
+msgstr ""
+
+#: loop-portfolio.php:31
+msgid "Apologies, but no results were found for the requested archive.<br />Perhaps searching will help find a related post."
+msgstr ""
+
+#: single-portfolio.php:35
+msgid "Client:"
+msgstr ""
+
+#: single-portfolio.php:37
+msgid "Date:"
+msgstr ""
+
+#: single-portfolio.php:42
+msgid "View Project"
+msgstr ""
+
+#: single.php:36
+msgid "Pages:"
+msgstr ""
+
+#: template-contact.php:54
+msgid "Name"
+msgstr ""
+
+#: template-contact.php:59
+msgid "Email"
+msgstr ""
+
+#: template-contact.php:63
+msgid "Message"
+msgstr ""
+
+#: template-contact.php:91
+#: template-contact.php:94
+msgid "Follow Us"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:13
+msgid "Search Portfolio Tags"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:14
+msgid "Popular Portfolio Tags"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:15
+msgid "All Portfolio Tags"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:18
+msgid "Edit Portfolio Tag"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:19
+msgid "Update Portfolio Tag"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:20
+msgid "Add New Portfolio Tag"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:21
+msgid "New Portfolio Tag Name"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:22
+msgid "Separate Portfolio Tags with commas"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:23
+msgid "Add or remove Portfolio Tags"
+msgstr ""
+
+#: admin/ct-custom-taxonomies.php:24
+msgid "Choose from the most used Portfolio Tags"
+msgstr ""
+
+#: admin/theme-functions.php:52
+msgid "Primary Menu"
+msgstr ""
+
+#: admin/theme-functions.php:261
+msgid "Share This"
+msgstr ""
+
+#: admin/theme-functions.php:264
+#: admin/theme-functions.php:265
+#: admin/theme-functions.php:266
+msgid "Check out this great article on"
+msgstr ""
+
+#: admin/theme-functions.php:288
+msgid "About The Author"
+msgstr ""
+
+#: admin/theme-functions.php:516
+msgid "<span class=\"meta-nav\">&larr;</span> Older"
+msgstr ""
+
+#: admin/theme-functions.php:517
+msgid "Newer <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: admin/theme-functions.php:560
+msgid "All"
+msgstr ""
+
+#: admin/theme-functions.php:677
+msgid "Related Posts"
+msgstr ""
+
+#: admin/theme-functions.php:892
+msgid "View"
+msgstr ""
+
+#: admin/theme-functions.php:922
+#: admin/theme-functions.php:923
+msgid "%link"
+msgstr ""
+
+#: admin/theme-functions.php:1085
+msgid "Home"
+msgstr ""
+
+#: admin/theme-functions.php:1241
+msgid "g:i a"
+msgstr ""
+
+#: admin/theme-functions.php:1244
+#, php-format
+msgid "Minute %1$s"
+msgstr ""
+
+#: admin/theme-functions.php:1244
+msgid "i"
+msgstr ""
+
+#: admin/theme-functions.php:1247
+msgid "g a"
+msgstr ""
+
+#: admin/theme-functions.php:1258
+#: admin/theme-functions.php:1264
+#: admin/theme-functions.php:1269
+#: admin/theme-functions.php:1274
+msgid "Y"
+msgstr ""
+
+#: admin/theme-functions.php:1259
+#: admin/theme-functions.php:1270
+msgid "F"
+msgstr ""
+
+#: admin/theme-functions.php:1260
+msgid "j"
+msgstr ""
+
+#: admin/theme-functions.php:1265
+#, php-format
+msgid "Week %1$s"
+msgstr ""
+
+#: admin/theme-functions.php:1281
+#, php-format
+msgid "Search results for &quot;%1$s&quot;"
+msgstr ""
+
+#: admin/theme-functions.php:1285
+msgid "404 Not Found"
+msgstr ""
+
+#: admin/classes/class.options_machine.php:473
+msgid "Last Backup : "
+msgstr ""
+
+#: admin/classes/class.options_machine.php:533
+msgid "Upload"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:38
+msgid "CT Social"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:136
+msgid "Title:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:140
+msgid "Dribbble:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:144
+msgid "Email:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:148
+msgid "Facebook:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:152
+msgid "Flickr:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:156
+msgid "Foursquare:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:160
+msgid "GitHub:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:164
+msgid "Google+:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:168
+msgid "Instagram:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:172
+msgid "LinkedIn:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:176
+msgid "Pinterest:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:180
+msgid "Skype:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:184
+msgid "Twitter:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:188
+msgid "YouTube:"
+msgstr ""
+
+#: admin/ct-social/ct-social.php:192
+msgid "Links:"
+msgstr ""
+
+#: admin/front-end/options.php:58
+#: admin/front-end/options.php:82
+msgid "Save All Changes"
+msgstr ""
+
+#: admin/front-end/options.php:83
+msgid "Options Reset"
+msgstr ""
+
+#: admin/functions/functions.mediauploader.php:20
+msgid "Options"
+msgstr ""
+
+#: admin/functions/functions.mediauploader.php:210
+msgid "Gallery"
+msgstr ""
+
+#: admin/functions/functions.mediauploader.php:210
+msgid "Previously Uploaded"
+msgstr ""
+
+#: admin/functions/functions.options.php:144
+msgid "General Settings"
+msgstr ""
+
+#: admin/functions/functions.options.php:147
+msgid "Full Width or Boxed Layout?"
+msgstr ""
+
+#: admin/functions/functions.options.php:148
+msgid "Choose if you would like to a full width or boxed layout."
+msgstr ""
+
+#: admin/functions/functions.options.php:158
+msgid "Choose a sidebar layout"
+msgstr ""
+
+#: admin/functions/functions.options.php:159
+msgid "Select main content and sidebar alignment. Choose left, right."
+msgstr ""
+
+#: admin/functions/functions.options.php:168
+msgid "Choose a heading font"
+msgstr ""
+
+#: admin/functions/functions.options.php:169
+#: admin/functions/functions.options.php:176
+msgid "Select an alternative font."
+msgstr ""
+
+#: admin/functions/functions.options.php:175
+msgid "Choose a body font"
+msgstr ""
+
+#: admin/functions/functions.options.php:182
+msgid "Custom Excerpt Length"
+msgstr ""
+
+#: admin/functions/functions.options.php:183
+msgid "Specify the length of post excerpts in words, default is 25.'."
+msgstr ""
+
+#: admin/functions/functions.options.php:189
+msgid "Header"
+msgstr ""
+
+#: admin/functions/functions.options.php:192
+msgid "Custom Logo"
+msgstr ""
+
+#: admin/functions/functions.options.php:193
+msgid "Upload a logo for your theme, or specify the image address of your online logo. (http://yoursite.com/logo.png)"
+msgstr ""
+
+#: admin/functions/functions.options.php:198
+msgid "Use Text Logo?"
+msgstr ""
+
+#: admin/functions/functions.options.php:199
+msgid "Choose if you would like to use the Blog Title in place of an image logo. Text can be setup in WP Settings > General."
+msgstr ""
+
+#: admin/functions/functions.options.php:206
+msgid "FlexSlider"
+msgstr ""
+
+#: admin/functions/functions.options.php:209
+msgid "These options control the Slider Block for the Page Builder, (Appearance > Page Builder > Slider)."
+msgstr ""
+
+#: admin/functions/functions.options.php:215
+msgid "Animation"
+msgstr ""
+
+#: admin/functions/functions.options.php:216
+msgid "Select your animation type."
+msgstr ""
+
+#: admin/functions/functions.options.php:225
+msgid "Slide Direction"
+msgstr ""
+
+#: admin/functions/functions.options.php:226
+msgid "Select sliding direction."
+msgstr ""
+
+#: admin/functions/functions.options.php:235
+msgid "Slideshow Speed"
+msgstr ""
+
+#: admin/functions/functions.options.php:236
+msgid "Set the speed of the slideshow cycling, in milliseconds."
+msgstr ""
+
+#: admin/functions/functions.options.php:241
+msgid "Animation Duration"
+msgstr ""
+
+#: admin/functions/functions.options.php:242
+msgid "Set the speed of animations, in milliseconds."
+msgstr ""
+
+#: admin/functions/functions.options.php:247
+msgid "Randomize Slides?"
+msgstr ""
+
+#: admin/functions/functions.options.php:248
+msgid "Randomize slide order."
+msgstr ""
+
+#: admin/functions/functions.options.php:258
+msgid "Create a Skin"
+msgstr ""
+
+#: admin/functions/functions.options.php:261
+msgid "Use Custom Styles?"
+msgstr ""
+
+#: admin/functions/functions.options.php:262
+msgid "Select whether or not you'd like to use these custom styles."
+msgstr ""
+
+#: admin/functions/functions.options.php:268
+msgid "Body Background Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:269
+msgid "Pick a background color for the theme (default: #fff)."
+msgstr ""
+
+#: admin/functions/functions.options.php:287
+msgid "Body Background Image"
+msgstr ""
+
+#: admin/functions/functions.options.php:288
+msgid "Upload a custom body background image."
+msgstr ""
+
+#: admin/functions/functions.options.php:293
+msgid "Body Background Position"
+msgstr ""
+
+#: admin/functions/functions.options.php:294
+#: admin/functions/functions.options.php:301
+msgid "Choose the position for your background image."
+msgstr ""
+
+#: admin/functions/functions.options.php:300
+msgid "Body Background Repeat"
+msgstr ""
+
+#: admin/functions/functions.options.php:307
+msgid "Left Sidebar Background Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:308
+msgid "Pick a background color for the left sidebar."
+msgstr ""
+
+#: admin/functions/functions.options.php:313
+msgid "Left Sidebar Nav Current Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:319
+msgid "Buttons Border Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:320
+msgid "Pick a border color all the buttons."
+msgstr ""
+
+#: admin/functions/functions.options.php:325
+msgid "Link Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:331
+msgid "Visited Link Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:332
+msgid "."
+msgstr ""
+
+#: admin/functions/functions.options.php:337
+msgid "Hover Link Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:343
+msgid "Active Link Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:349
+msgid "Widget Heading Border Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:350
+#: admin/functions/functions.options.php:356
+msgid "Pick a border color for the widget headings."
+msgstr ""
+
+#: admin/functions/functions.options.php:355
+msgid "Widget Heading Text Color"
+msgstr ""
+
+#: admin/functions/functions.options.php:361
+msgid "Custom CSS"
+msgstr ""
+
+#: admin/functions/functions.options.php:362
+msgid "Quickly add some CSS to your theme by adding it to this block."
+msgstr ""
+
+#: admin/functions/functions.options.php:368
+msgid "Single Post"
+msgstr ""
+
+#: admin/functions/functions.options.php:371
+msgid "Display Social?"
+msgstr ""
+
+#: admin/functions/functions.options.php:372
+msgid "Select whether or not you'd like to display social links globally for posts."
+msgstr ""
+
+#: admin/functions/functions.options.php:378
+msgid "Display Comments?"
+msgstr ""
+
+#: admin/functions/functions.options.php:379
+msgid "Select whether or not you'd like to display comments globally for posts."
+msgstr ""
+
+#: admin/functions/functions.options.php:386
+msgid "Portfolio Single"
+msgstr ""
+
+#: admin/functions/functions.options.php:389
+msgid "Display Project Information?"
+msgstr ""
+
+#: admin/functions/functions.options.php:390
+msgid "Select whether or not you'd like to display the project information, client, date and site link."
+msgstr ""
+
+#: admin/functions/functions.options.php:397
+msgid "Contact"
+msgstr ""
+
+#: admin/functions/functions.options.php:400
+msgid "Facebook"
+msgstr ""
+
+#: admin/functions/functions.options.php:401
+msgid "Enter your Facebook URL'."
+msgstr ""
+
+#: admin/functions/functions.options.php:406
+msgid "Twitter"
+msgstr ""
+
+#: admin/functions/functions.options.php:407
+msgid "Enter your Twitter URL'."
+msgstr ""
+
+#: admin/functions/functions.options.php:412
+msgid "Email Address"
+msgstr ""
+
+#: admin/functions/functions.options.php:413
+msgid "The email address you would like your form submissions sent to (e.g. youremail@yourdomain.com)."
+msgstr ""
+
+#: admin/functions/functions.options.php:418
+msgid "Subject"
+msgstr ""
+
+#: admin/functions/functions.options.php:419
+msgid "Subject of the email sent by the contact form."
+msgstr ""
+
+#: admin/functions/functions.options.php:424
+msgid "Success Message"
+msgstr ""
+
+#: admin/functions/functions.options.php:425
+msgid "This is the text displayed if the form submission has been successful."
+msgstr ""
+
+#: admin/functions/functions.options.php:430
+msgid "Phone"
+msgstr ""
+
+#: admin/functions/functions.options.php:431
+msgid "Enter your phone number here."
+msgstr ""
+
+#: admin/functions/functions.options.php:436
+msgid "Display Google Map?"
+msgstr ""
+
+#: admin/functions/functions.options.php:437
+msgid "Select whether or not you'd like to display a Google map of your location."
+msgstr ""
+
+#: admin/functions/functions.options.php:443
+msgid "Google Map Type?"
+msgstr ""
+
+#: admin/functions/functions.options.php:444
+msgid "Choose your map display type."
+msgstr ""
+
+#: admin/functions/functions.options.php:455
+msgid "Map Address"
+msgstr ""
+
+#: admin/functions/functions.options.php:456
+msgid "The address of your location to be used in the Google Map, needs to be entered in this format: 303 W Harbor Dr, San Diego, CA 92101"
+msgstr ""
+
+#: admin/functions/functions.options.php:462
+msgid "Footer"
+msgstr ""
+
+#: admin/functions/functions.options.php:465
+msgid "Tracking Code"
+msgstr ""
+
+#: admin/functions/functions.options.php:466
+msgid "Paste your Google Analytics (or other) tracking code here. This will be added into the footer template of your theme."
+msgstr ""
+
+#: admin/functions/functions.options.php:475
+msgid "Backup and Restore Options"
+msgstr ""
+
+#: admin/functions/functions.options.php:483
+msgid "Framework"
+msgstr ""
+
+#: admin/functions/functions.options.php:486
+msgid "Custom Framework Name"
+msgstr ""
+
+#: admin/functions/functions.options.php:487
+msgid "Use this field to specify a custom name to replace the theme name in the top right corner of options panel."
+msgstr ""
+
+#: admin/functions/functions.options.php:492
+msgid "Disable Changelog and Theme Documentation links?"
+msgstr ""
+
+#: admin/functions/functions.options.php:493
+msgid "Disable changelog and theme documentation links under theme name in the options panel."
+msgstr ""
+
+#: admin/functions/functions.options.php:499
+msgid "Note"
+msgstr ""
+
+#: admin/metabox/init.php:207
+msgid "Clear"
+msgstr ""
+
+#: admin/metabox/init.php:208
+msgid "Default"
+msgstr ""
+
+#: admin/metabox/init.php:209
+msgid "Select Color"
+msgstr ""
+
+#: admin/metabox/init.php:210
+msgid "Current Color"
+msgstr ""
+
+#: admin/metabox/init.php:936
+msgid "Save"
+msgstr ""
+
+#: admin/metabox/helpers/cmb_Meta_Box_ajax.php:47
+msgid "Please Try Again"
+msgstr ""
+
+#: admin/metabox/helpers/cmb_Meta_Box_ajax.php:118
+msgid "Remove Embed"
+msgstr ""
+
+#: admin/metabox/helpers/cmb_Meta_Box_ajax.php:121
+#, php-format
+msgid "No oEmbed Results Found for %s. View more info at"
+msgstr ""
+
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:139
+msgid "Add Row"
+msgstr ""
+
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:167
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:459
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:502
+msgid "Remove"
+msgstr ""
+
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:437
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:475
+msgid "Add or Upload File"
+msgstr ""
+
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:448
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:494
+msgid "Remove Image"
+msgstr ""
+
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:459
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:502
+msgid "File:"
+msgstr ""
+
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:459
+#: admin/metabox/helpers/cmb_Meta_Box_types.php:502
+msgid "Download"
+msgstr ""
+
+#: admin/page-builder/page-builder-block-functions.php:42
+#, php-format
+msgid "Unable to parse entered address. API response code: %s"
+msgstr ""
+
+#: admin/page-builder/page-builder-block-functions.php:44
+#, php-format
+msgid "XML parsing error. Please try again later. API response code: %s"
+msgstr ""
+
+#: admin/page-builder/page-builder-block-functions.php:48
+msgid "Unable to contact Google API service."
+msgstr ""
+
+#: admin/page-builder/page-builder.php:13
+msgid "Page Builder"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-carousel-posts-block.php:118
+#: admin/page-builder/blocks/aq-featured-posts-block.php:252
+msgid "View all posts &rarr;"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-contact-block.php:26
+msgid "Sorry, this block requires the <a href=\"http://wordpress.org/extend/plugins/contact-form-7/\">Contact Form 7</a> plugin to be installed & activated. Please install/activate the plugin before using this block"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-contact-block.php:42
+msgid "You do not currently have any contact form setup. Please create a contact form before setting up this block"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-contact-block.php:44
+msgid "Setup contact form"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-portfolio-block.php:33
+#: admin/page-builder/blocks/aq-testimonial-block.php:27
+msgid "Number of items"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:24
+msgid "Google-Plus"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:25
+msgid "Dribbble"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:26
+msgid "Delicious"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:27
+msgid "WordPress"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:28
+msgid "MySpace"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:29
+msgid "PayPal"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:30
+msgid "Tumblr"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:31
+msgid "Flickr"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:32
+msgid "Instagram"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:33
+msgid "Picasa"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:34
+#: admin/page-builder/blocks/aq-social-block.php:43
+msgid "Github"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:35
+msgid "Vimeo"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:36
+msgid "YouTube"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:37
+msgid "Yahoo"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:38
+msgid "Yelp"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:39
+msgid "Virb"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:40
+msgid "Skype"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:41
+msgid "Spotify"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:42
+msgid "Soundcloud"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:44
+msgid "Pinterest"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:45
+msgid "LastFM"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:46
+msgid "Foursquare"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:47
+msgid "LinkedIn"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:48
+msgid "Forrst"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:49
+msgid "RSS"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:67
+msgid "Sorry, this block requires the <a href=\"http://wordpress.org/extend/plugins/candy-social-widget/\">Candy Social Widget</a> plugin to be installed & activated. Please install/activate the plugin before using this block"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:77
+msgid "Title (optional)"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-social-block.php:95
+msgid "Size:"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:28
+msgid "Sorry, this block requires the <a href=\"http://wordpress.org/extend/plugins/twitter-widget-pro/\">Twitter Widget Pro</a> plugin to be installed & activated. Please install/activate the plugin before using this block"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:44
+msgid "Twitter username:"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:48
+msgid "Give the feed a title ( optional ):"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:52
+msgid "How many items would you like to display?"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:62
+msgid "Display profile image?"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:64
+msgid "Do not show"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:65
+msgid "Mini - 24px by 24px"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:66
+msgid "Normal - 48px by 48px"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:67
+msgid "Bigger - 73px by 73px"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:68
+msgid "Porticoal"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:74
+msgid "Include retweets"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:78
+msgid "Hide @replies"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:82
+msgid "Hide sending applications"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:87
+msgid "Show Tweet Intents (reply, retweet, favorite)"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:92
+msgid "Show Follow Link"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:95
+msgid "What to display when Twitter is down ( optional ):"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:99
+msgid "Number of seconds to wait for a response from Twitter ( default 2 ):"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:103
+msgid "Show date/time of Tweet ( rather than 2 ____ ago ):"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:105
+msgid "Always"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:106
+msgid "If over an hour old"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:107
+msgid "If over a day old"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:108
+msgid "If over a week old"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:109
+msgid "If over a month old"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:110
+msgid "If over a year old"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:111
+msgid "Never"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:115
+#, php-format
+msgid "Format to display the date in, uses <a href=\"%s\">PHP date()</a> format:"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:120
+msgid "Open links in a new window"
+msgstr ""
+
+#: admin/page-builder/blocks/aq-twitter-block.php:124
+msgid "Show Link to Twitter Widget Pro"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:155
+msgid "Install Required Plugins"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:156
+msgid "Install Plugins"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:157
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:158
+msgid "Something went wrong."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:169
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:170
+msgid "Return to the dashboard"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:171
+#: admin/plugins/class-tgm-plugin-activation.php:1841
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:172
+msgid "The following plugin was activated successfully:"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:173
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:174
+msgid "Dismiss this notice"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1086
+msgid "External Link"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1091
+msgid "Private Repository"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1094
+msgid "Pre-Packaged"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1098
+msgid "WordPress Repository"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1101
+msgid "Required"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1101
+msgid "Recommended"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1104
+msgid "Not Installed"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1106
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1276
+#, php-format
+msgid "No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the Dashboard\">Return to the Dashboard</a>"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1292
+msgid "Plugin"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1293
+msgid "Source"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1294
+msgid "Type"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1295
+msgid "Status"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1313
+msgid "Install"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1314
+msgid "Activate"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1824
+msgid "Install package not available."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1825
+#, php-format
+msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1826
+msgid "Unpacking the package&#8230;"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1827
+msgid "Installing the plugin&#8230;"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1828
+msgid "Plugin install failed."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1829
+msgid "Plugin installed successfully."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1840
+msgid "Plugin activation failed."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1950
+msgid "The installation and activation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1951
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1951
+#: admin/plugins/class-tgm-plugin-activation.php:1960
+msgid "Show Details"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1951
+#: admin/plugins/class-tgm-plugin-activation.php:1960
+msgid "Hide Details"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1952
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1953
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1957
+msgid "The installation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1958
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1959
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1960
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1961
+msgid "All installations have been completed."
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:1962
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: admin/plugins/class-tgm-plugin-activation.php:2053
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: admin/plugins/register.php:110
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: admin/plugins/register.php:123
+#, php-format
+msgid "All plugins installed and activated successfully. %s"
+msgstr ""
+
+#: includes/widgets/ct-widget-adspace.php:13
+msgid "CT Adspace Widget"
+msgstr ""
+
+#: includes/widgets/ct-widget-adspace.php:57
+msgid "Title (optional):"
+msgstr ""
+
+#: includes/widgets/ct-widget-adspace.php:61
+msgid "Ad Code:"
+msgstr ""
+
+#: includes/widgets/ct-widget-adspace.php:66
+msgid "Image Url:"
+msgstr ""
+
+#: includes/widgets/ct-widget-adspace.php:70
+msgid "Link URL:"
+msgstr ""
+
+#: includes/widgets/ct-widget-adspace.php:74
+msgid "Alt text:"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:13
+msgid "CT Blog Author Info"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:60
+msgid "Bio:"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:64
+msgid "<a href=\"http://www.gravatar.com/\">Gravatar</a> E-mail:"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:68
+msgid "Gravatar Size:"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:72
+msgid "Gravatar Alignment:"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:74
+msgid "Left"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:75
+msgid "Right"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:79
+msgid "Read More Text (optional):"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:83
+msgid "Read More URL (optional):"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:87
+msgid "Visible Pages:"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:90
+msgid "Home only"
+msgstr ""
+
+#: includes/widgets/ct-widget-blogauthor.php:91
+msgid "Single only"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:13
+msgid "CT Contact Info"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:70
+msgid "Blurb:"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:74
+msgid "Company Name:"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:78
+msgid "Street Address:"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:82
+msgid "City:"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:86
+msgid "State:"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:90
+msgid "Postal:"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:94
+msgid "Country:"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:102
+msgid "View More Link Text"
+msgstr ""
+
+#: includes/widgets/ct-widget-contactinfo.php:106
+msgid "View More Link URL"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:14
+msgid "CT Flickr"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:27
+msgid "Photos on flickr"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:50
+msgid "Flickr ID (<a href=\"http://www.idgettr.com\">idGettr</a>):"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:54
+#: includes/widgets/ct-widget-latestposts.php:71
+#: includes/widgets/ct-widget-portfolio.php:63
+#: includes/widgets/ct-widget-testimonials.php:66
+msgid "Number:"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:62
+msgid "Type:"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:64
+msgid "User"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:65
+msgid "Group"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:69
+msgid "Sorting:"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:71
+#: includes/widgets/ct-widget-tabs.php:109
+#: includes/widgets/ct-widget-tabs.php:116
+msgid "Latest"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:72
+msgid "Random"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:78
+msgid "Square"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:79
+msgid "Medium"
+msgstr ""
+
+#: includes/widgets/ct-widget-flickr.php:80
+msgid "Thumbnail"
+msgstr ""
+
+#: includes/widgets/ct-widget-latestposts.php:13
+msgid "CT Latest Posts"
+msgstr ""
+
+#: includes/widgets/ct-widget-portfolio-tags-filter.php:13
+msgid "CT Portfolio Tags Filter"
+msgstr ""
+
+#: includes/widgets/ct-widget-portfolio-tags-filter.php:41
+msgid "Use this widget on portfolio pages only in the left sidebar."
+msgstr ""
+
+#: includes/widgets/ct-widget-portfolio.php:13
+msgid "CT Portfolio"
+msgstr ""
+
+#: includes/widgets/ct-widget-search.php:13
+msgid "CT Search"
+msgstr ""
+
+#: includes/widgets/ct-widget-tabs.php:13
+msgid "CT Tabs"
+msgstr ""
+
+#: includes/widgets/ct-widget-tabs.php:102
+msgid "Number of posts:"
+msgstr ""
+
+#: includes/widgets/ct-widget-tabs.php:107
+msgid "First Visible Tab:"
+msgstr ""
+
+#: includes/widgets/ct-widget-tabs.php:110
+#: includes/widgets/ct-widget-tabs.php:119
+msgid "Comments"
+msgstr ""
+
+#: includes/widgets/ct-widget-tabs.php:111
+#: includes/widgets/ct-widget-tabs.php:122
+msgid "Tags"
+msgstr ""
+
+#: includes/widgets/ct-widget-tabs.php:216
+msgid "on"
+msgstr ""
+
+#: includes/widgets/ct-widget-testimonials.php:13
+msgid "CT Testimonials"
+msgstr ""
+

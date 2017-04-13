@@ -1,0 +1,72 @@
+/*
+* Portfolio
+*
+* @package Longshore
+* @subpackage CSS
+*/
+
+/* Tags Filter */
+#tags-filter, #port-tags-filter { margin: 0 0 60px 0; text-align: center;}
+	#tags-filter li, #port-tags-filter li { font-family: 'Montserrat', 'sans-serif'; display: inline-block; margin: 0 10px 0 0; font-size: 12px; text-transform: uppercase;}
+		#tags-filter a, #port-tags-filter a { padding: 10px 20px; border: 1px solid #efefef;}
+			#tags-filter a:hover, #port-tags-filter a:hover { background: #efefef;}
+			#tags-filter a.selected, #port-tags-filter a.selected { background: #2ea9ef; color: #fff;}
+
+/* Portfolio Items */
+.item a img { display: block;}
+
+	figure.portfolio-item { position: relative; display: block; width: 100%; height: 100%; overflow: hidden;}
+
+		figure.portfolio-item a { position: relative; display: block; overflow: hidden; text-align:center;}
+
+		figure.portfolio-item img { position: relative; z-index: 0; backface-visibility: hidden; -webkit-transition:  all 700ms; -moz-transition:  all 700ms; transition:  all 700ms;}
+			figure.portfolio-item:hover img { transform: scale(1.1) rotate(0.1deg);	-ms-transform: scale(1.1) rotate(0.1deg); -webkit-transform: scale(1.1) rotate(0.1deg);	-o-transform: scale(1.1) rotate(0.1deg);
+		-moz-transform: scale(1.1) rotate(0.1deg);}
+
+			figure.portfolio-item .info {
+			    position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			    z-index: 2;
+				opacity: 0;
+				-webkit-transition:  opacity 400ms ease 0s;
+				-moz-transition:  opacity 400ms ease 0s;
+			    transition: opacity 400ms ease 0s;
+			    background: rgba(0,0,0,0.8);
+			    border: none;
+			}
+
+				figure.portfolio-item .info-wrapper {
+					position: absolute;
+					top: 35%;
+					height: 100%;
+					width: 100%;
+				}
+
+					li.isotope-item a:hover .info,
+					li.isotope-item a:focus .info {
+						  opacity: 1;
+					}
+
+					figure.portfolio-item p.plus { font-size: 48px; margin: 20px 0 0 0;}
+
+					figure.portfolio-item h4 {
+						text-align: center;
+						text-transform: uppercase;
+					    margin: 0 0 10px 0;
+					    color: #fff;
+					}
+
+					figure.portfolio-item p {
+						text-align: center;
+						font-size: 12px;
+					    margin: 0;
+					    font-weight: 400;
+					    color: #fff;
+					}
+
+					figure.portfolio-item .view-btn { margin: 20px 0 0 0;}
+
+					figure.portfolio-item .view-btn span { font-family: 'Montserrat', 'sans-serif'; font-weight: 400; letter-spacing: 1px; display: inline-block; padding: 2px 15px; border-radius: 3px; border: 1px solid #fff; text-transform: uppercase;}

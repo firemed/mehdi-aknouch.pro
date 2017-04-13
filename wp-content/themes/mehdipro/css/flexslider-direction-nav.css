@@ -1,0 +1,20 @@
+/*
+* Flexslider Direction Nav
+* 
+* @package WP Portico
+* @subpackage CSS
+*/
+
+.flex-direction-nav {*height: 0;}
+.flex-direction-nav a {width: 40px; height: 40px; display: block; background: url(../images/slider/bg_direction_nav.png) no-repeat 0 0; position: absolute; top: 44%; z-index: 10; cursor: pointer; text-indent: -9999px; opacity: 0; -webkit-transition: all .3s ease;}
+	.archive .flex-direction-nav a,
+	.search .flex-direction-nav a,
+	.aq-block-aq_testimonial_block .flex-direction-nav a { top: 45%;}
+		.archive .col.span_6 .flex-direction-nav a,
+		.search .col.span_6 .flex-direction-nav a { top: 40%;}
+.flex-direction-nav .flex-next {background-position: 100% 0; right: -40px; }
+.flex-direction-nav .flex-prev {left: -40px;}
+.flexslider:hover .flex-next {opacity: 0.8; right: 5px;}
+.flexslider:hover .flex-prev {opacity: 0.8; left: 5px;}
+.flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover {opacity: 1;}
+.flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}

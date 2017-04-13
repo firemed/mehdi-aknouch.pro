@@ -1,0 +1,28 @@
+/*
+Theme Name: Mehdi AKNOUCH - Designeur
+Description: Mon thème personnel
+Author: HENRY Morgan - AKNOUCH Mehdi
+Version: 1.0.0
+
+*/
+
+body #left-sidebar nav li.current-menu-item a, body #left-sidebar .widget li a.selected {
+    color: #191919;
+    text-decoration: none;
+
+}
+
+.page.home #isotope-container .isotope-item{
+
+}
+
+.banner-content.odd{
+    background-color: #111;
+}
+.banner-content.even{
+    background-color: #444;
+}
+
+article.post {
+    margin: 0 0 -5px 0;
+}

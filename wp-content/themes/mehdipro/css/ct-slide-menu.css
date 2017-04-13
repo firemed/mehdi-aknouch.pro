@@ -1,0 +1,37 @@
+/*
+* CT Slide Menu
+* 
+* @package WP Longshore
+* @subpackage CSS
+*/
+
+#mobile-header,
+#showLeft { display: none;}
+
+@media only screen and (max-width: 959px) {
+	
+	#mobile-header { display: block; width: 100%; background: #efefef; padding: 5px 10px;}
+		#showLeft { float: left; display: block; z-index: 999999; background: #999; padding: 8px 12px; color: #fff;}
+
+	.cbp-spmenu-left {
+		left: -249px;
+	}
+	
+	#left-sidebar.col.span_2.cbp-spmenu-left.cbp-spmenu-open {
+		left: 0px;
+		width: 100%;
+		display: block;
+	}
+	
+	/* Logo */
+	#sidebar-left .logo { margin: 30px auto;}
+	
+	/* Transitions */
+	
+	#left-sidebar {
+		-webkit-transition: all 0.3s ease;
+		-moz-transition: all 0.3s ease;
+		transition: all 0.3s ease;
+	}
+
+}
