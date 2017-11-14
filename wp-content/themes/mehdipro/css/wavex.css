@@ -160,7 +160,8 @@ margin: -5px 0 0 0 !important;
 .logo{
 	position:absolute;
 	z-index:1100;
-	left: 44.3%;
+    left: 40%; /* MODIF */
+	/*left: 44.3%; ORIGINAL */
 	float:left;
 	margin:9px 0 0 0;
 	cursor:pointer;
